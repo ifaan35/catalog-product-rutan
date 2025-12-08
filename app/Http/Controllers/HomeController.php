@@ -13,7 +13,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Homepage displays hero section only
-        return view('home');
+        // Get trending/featured products (latest 8 products)
+        $trendingProducts = Product::with('category')
+            ->where('stock', '>', 0)
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+        
+        // Get all categories for quick navigation
+        $categories = Category::withCount('products')
+            ->orderBy('name')
+            ->get();
+        
+        return view('home', compact('trendingProducts', 'categories'));
     }
 }

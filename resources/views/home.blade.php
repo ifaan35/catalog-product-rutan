@@ -87,5 +87,133 @@
                 </div>
             </div>
         </section>
+
+        {{-- Main Content --}}
+        <div class="relative">
+            
+            {{-- 2. Featured Products Section --}}
+            <section class="py-20 sm:py-28" style="background-color: white;">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4" style="background-color: rgba(236, 191, 98, 0.15); color: #ECBF62;">
+                            🏆 PILIHAN TERBAIK
+                        </span>
+                        <h2 class="text-4xl sm:text-5xl font-black mb-4" style="color: #07213C;">
+                            Produk <span style="color: #ECBF62;">Unggulan</span>
+                        </h2>
+                        <div class="w-20 h-1 mx-auto" style="background-color: #ECBF62;"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        @forelse($trendingProducts as $product)
+                            @php $isSoldOut = $product->stock <= 0; @endphp
+                            <div class="group h-full">
+                                <a href="{{ route('product.show', $product->id) }}" class="block bg-white rounded-2xl overflow-hidden transition-all duration-300 transform hover:shadow-xl h-full border border-gray-200">
+                                    <!-- Product Image -->
+                                    <div class="relative overflow-hidden h-56" style="background: linear-gradient(135deg, #E1E2E4 0%, #D3D4D7 100%);">
+                                        @if($product->image)
+                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                        @elseif($product->image_url)
+                                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                        @else
+                                            <div class="flex items-center justify-center h-full text-6xl">📦</div>
+                                        @endif
+                                        
+                                        {{-- Badge --}}
+                                        @if($product->is_trending)
+                                            <div class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold shadow-md" style="background-color: #ECBF62; color: #07213C;">
+                                                🔥 Trending
+                                            </div>
+                                        @endif
+                                        
+                                        @if($isSoldOut)
+                                            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                                                <span class="text-white font-black text-lg">SOLD OUT</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    
+                                    <!-- Product Info -->
+                                    <div class="p-5">
+                                        <h3 class="text-sm font-bold mb-2 line-clamp-2 group-hover:text-yellow-600 transition" style="color: #07213C;">
+                                            {{ $product->name }}
+                                        </h3>
+                                        
+                                        <div class="flex items-baseline gap-2 mb-4">
+                                            <span class="text-2xl font-black" style="color: #ECBF62;">
+                                                Rp {{ number_format($product->price, 0, ',', '.') }}
+                                            </span>
+                                            @if($product->original_price)
+                                                <span class="text-xs line-through opacity-50" style="color: #6B7280;">
+                                                    Rp {{ number_format($product->original_price, 0, ',', '.') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        
+                                        <div class="flex items-center justify-between gap-2">
+                                            <span class="text-xs font-semibold" style="color: #6B7280;">
+                                                📦 <span style="color: {{ $product->stock > 5 ? '#10B981' : '#EF4444' }};">{{ $product->stock }} stok</span>
+                                            </span>
+                                            @if(!$isSoldOut)
+                                                <form action="{{ route('cart.store', $product) }}" method="POST" onclick="event.stopPropagation();">
+                                                    @csrf
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <button type="submit" class="px-3 py-2 rounded text-xs font-bold transition-all duration-300 hover:shadow-lg hover:scale-105" style="background-color: #ECBF62; color: #07213C;">
+                                                        Add
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="col-span-4 text-center py-20">
+                                <p class="text-2xl opacity-50" style="color: #6B7280;">Belum ada produk unggulan</p>
+                            </div>
+                        @endforelse
+                    </div>
+                    
+                    <div class="text-center mt-16">
+                        <a href="{{ route('products.index') }}" class="inline-block font-bold py-4 px-12 rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 transform" style="background: linear-gradient(135deg, #07213C 0%, #0d2949 100%); color: white;">
+                            Lihat Semua Produk →
+                        </a>
+                    </div>
+                </div>
+            </section>
+            {{-- 3. Section Kategori (Hidden) --}}
+            <section class="hidden py-32 sm:py-40" style="background-color: white;">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-20">
+                        <h2 class="text-4xl sm:text-5xl font-black mb-6" style="color: #07213C;">
+                            Jelajahi <span style="color: #ECBF62;">Kategori</span>
+                        </h2>
+                        <p class="text-lg opacity-70 max-w-2xl mx-auto" style="color: #6B7280;">
+                            Temukan produk yang Anda cari dari berbagai kategori pilihan
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center items-center gap-32 flex-wrap max-w-4xl mx-auto">
+                        @foreach([
+                            ['name' => 'peternakan', 'emoji' => '🐄'],
+                            ['name' => 'perikanan', 'emoji' => '🐟'],
+                            ['name' => 'pertanian', 'emoji' => '🌾']
+                        ] as $cat)
+                            <div class="group cursor-pointer text-center transform transition-all duration-300 hover:scale-110">
+                                <!-- Circular Badge -->
+                                <div class="w-36 h-36 rounded-full mx-auto mb-6 flex items-center justify-center text-6xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-2" style="background-color: #D3D4D7;">
+                                    {{ $cat['emoji'] }}
+                                </div>
+
+                                <!-- Category Name -->
+                                <p class="text-sm font-semibold transition duration-300" style="color: #07213C;">
+                                    {{ $cat['name'] }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </x-app-layout>

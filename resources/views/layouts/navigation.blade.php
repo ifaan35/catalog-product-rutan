@@ -24,8 +24,8 @@
                     🛒 Cart
                     <span x-show="cartCount > 0" 
                           x-text="cartCount"
-                          class="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center cart-badge"
-                          style="animation: pulse-badge 0.5s ease-out;"></span>
+                          class="absolute bg-red-500 text-white font-bold rounded-full flex items-center justify-center cart-badge"
+                          style="top: -10px; right: -12px; width: 28px; height: 28px; font-size: 13px; animation: pulse-badge 0.5s ease-out; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);"></span>
                 </a>
                 <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
                     Checkout
@@ -102,8 +102,8 @@
                 🛒 Cart
                 <span x-show="cartCount > 0" 
                       x-text="cartCount"
-                      class="absolute top-2 right-4 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center cart-badge"
-                      style="animation: pulse-badge 0.5s ease-out;"></span>
+                      class="absolute bg-red-500 text-white font-bold rounded-full flex items-center justify-center cart-badge"
+                      style="top: -4px; right: -8px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);"></span>
             </a>
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 Checkout

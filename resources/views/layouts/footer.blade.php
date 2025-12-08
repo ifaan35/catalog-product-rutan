@@ -1,7 +1,7 @@
 <!-- Footer Section -->
-<footer style="background-color: #07213C; color: white; padding-top: 4rem; padding-bottom: 4rem; padding-top: 4rem; padding-bottom: 4rem;">
+<footer style="background-color: #07213C; color: white; padding-top: 3rem; padding-bottom: 2rem;">
     <!-- Main Footer Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             
             <!-- Column 1: Brand Info -->
@@ -120,7 +120,7 @@
     <div style="border-top: 1px solid rgba(236, 191, 98, 0.3);"></div>
     
     <!-- Bottom Footer -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
             <p style="opacity: 0.8;">
                 © 2024 RUTAN SHOP. Semua hak dilindungi.

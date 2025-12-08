@@ -92,6 +92,7 @@ class CheckoutController extends Controller
 
             // C. Hapus Keranjang dari Session
             session()->forget('cart');
+            session()->forget('cart_count');
 
             DB::commit(); // Simpan perubahan permanen
 

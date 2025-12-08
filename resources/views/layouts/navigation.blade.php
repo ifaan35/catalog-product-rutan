@@ -17,7 +17,7 @@
                 <a href="{{ route('products.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 px-3 py-2 text-sm">
                     Product
                 </a>
-                <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 px-3 py-2 text-sm">
+                <a href="{{ route('about') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 px-3 py-2 text-sm">
                     About
                 </a>
                 <a href="{{ route('cart.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm flex items-center gap-2 relative">
@@ -27,13 +27,15 @@
                           class="absolute font-bold rounded-full flex items-center justify-center cart-badge"
                           style="top: -15px; right: -15px; width: 28px; height: 28px; font-size: 13px; animation: pulse-badge 0.5s ease-out; color: #ECBF62; "></span>
                 </a>
-                <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
-                    Checkout
+                @auth
+                <a href="{{ route('orders.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
+                    Orders
                 </a>
+                @endauth
 
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="font-bold py-2 px-4 rounded-lg transition duration-300 hover:shadow-lg" style="background-color: hsl(105, 2%, 46%); color: white;">
+                        <a href="{{ route('admin.dashboard') }}" class="font-bold py-2 px-4 rounded-lg transition duration-300 hover:shadow-lg" style="background-color:  #e6b95f; color: white;">
                             👨‍💼 Admin
                         </a>
                     @endif
@@ -95,7 +97,7 @@
             <a href="{{ route('products.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 Product
             </a>
-            <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
+            <a href="{{ route('about') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 About
             </a>
             <a href="{{ route('cart.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300 relative">
@@ -105,9 +107,11 @@
                       class="absolute font-bold rounded-full flex items-center justify-center cart-badge"
                       style="top: -15px; right: -15px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; color: #ECBF62;"></span>
             </a>
-            <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
-                Checkout
+            @auth
+            <a href="{{ route('orders.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
+                Orders
             </a>
+            @endauth
 
             @auth
                 @if(Auth::user()->role === 'admin')

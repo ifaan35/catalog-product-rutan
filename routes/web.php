@@ -26,6 +26,9 @@ use App\Http\Controllers\CategoryController;
 // Ganti rute ini dari 'dashboard' menjadi 'home'
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Rute untuk halaman About
+Route::view('/about', 'about')->name('about');
+
 // Rute untuk menampilkan detail produk
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 

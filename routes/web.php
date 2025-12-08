@@ -11,9 +11,6 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\AddressController;
-use App\Http\Controllers\IndonesiaAreaController;
-use App\Http\Controllers\ApiDemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,27 +25,6 @@ use App\Http\Controllers\ApiDemoController;
 
 // Ganti rute ini dari 'dashboard' menjadi 'home'
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// API Demo Route
-Route::get('/api-demo', [ApiDemoController::class, 'index'])->name('api.demo');
-
-// API Routes for Address Dropdown (Old system)
-Route::get('/api/provinces/{country_id}', [AddressController::class, 'getProvinces']);
-Route::get('/api/cities/{province_id}', [AddressController::class, 'getCities']);
-
-// API Routes for Indonesia Area (New system using external API)
-Route::prefix('api/indonesia')->name('api.indonesia.')->group(function () {
-    Route::get('/provinces', [IndonesiaAreaController::class, 'getProvinces'])->name('provinces');
-    Route::get('/regencies/{provinceId}', [IndonesiaAreaController::class, 'getRegencies'])->name('regencies');
-    Route::get('/districts/{regencyId}', [IndonesiaAreaController::class, 'getDistricts'])->name('districts');
-    Route::get('/villages/{districtId}', [IndonesiaAreaController::class, 'getVillages'])->name('villages');
-    
-    // Single data endpoints
-    Route::get('/province/{provinceId}', [IndonesiaAreaController::class, 'getProvince'])->name('province');
-    Route::get('/regency/{regencyId}', [IndonesiaAreaController::class, 'getRegency'])->name('regency');
-    Route::get('/district/{districtId}', [IndonesiaAreaController::class, 'getDistrict'])->name('district');
-    Route::get('/village/{villageId}', [IndonesiaAreaController::class, 'getVillage'])->name('village');
-});
 
 // Rute untuk menampilkan detail produk
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');

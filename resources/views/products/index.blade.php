@@ -6,23 +6,23 @@
         {{-- Header Section --}}
         <div class="mb-8">
             {{-- Breadcrumb --}}
-            <div class="text-sm mb-4" style="color: #072138;">
-                <a href="{{ route('home') }}" class="hover:underline" style="color: #F3C32A;">Home</a> / 
+            <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <a href="{{ route('home') }}" class="hover:underline">Home</a> / 
                 <span>All Products</span>
             </div>
 
-            <h1 class="text-3xl font-bold mb-2" style="color: #072138;">Semua Produk</h1>
-            <p class="text-gray-600">Jelajahi koleksi lengkap produk kami</p>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Semua Produk</h1>
+            <p class="text-gray-600 dark:text-gray-400">Jelajahi koleksi lengkap produk kami</p>
         </div>
 
         {{-- Filter & Search Section --}}
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8" style="background-color: #072138;">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
             <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                 {{-- Search Form --}}
                 <form action="{{ route('products.search') }}" method="GET" class="flex-1 max-w-md">
                     <div class="relative">
                         <input type="text" name="q" placeholder="Cari produk..." 
-                               class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:outline-none" style="border-color: #DFE1E3; focus:ring-color: #F3C32A;">
+                               class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -33,7 +33,7 @@
 
                 {{-- Category Links --}}
                 <div class="flex flex-wrap gap-2">
-                    <a href="{{ route('products.index') }}" class="px-3 py-1 text-white rounded-full text-sm transition" style="background-color: #F3C32A; color: #072138;">Semua</a>
+                    <a href="{{ route('products.index') }}" class="px-3 py-1 bg-pink-600 text-white rounded-full text-sm transition hover:bg-pink-700">Semua</a>
                     @php
                         $categoryIcons = [
                             'Peternakan' => '🐄',
@@ -43,7 +43,7 @@
                     @endphp
                     @if(isset($categories))
                         @foreach($categories as $category)
-                            <a href="{{ route('products.category', $category->slug) }}" class="px-3 py-1 rounded-full text-sm transition hover:opacity-80" style="background-color: #DFE1E3; color: #072138;">
+                            <a href="{{ route('products.category', $category->slug) }}" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                                 {{ $categoryIcons[$category->name] ?? '📦' }} {{ $category->name }}
                             </a>
                         @endforeach
@@ -60,13 +60,13 @@
                 {{-- Product Card dengan kondisi sold out --}}
                 <{{ $isSoldOut ? 'div' : 'a' }} 
                     @if(!$isSoldOut) href="{{ route('product.show', $product->id) }}" @endif
-                    class="block bg-white rounded-lg shadow-md transition duration-300 overflow-hidden
+                    class="block bg-white dark:bg-gray-800 rounded-lg shadow-md transition duration-300 overflow-hidden
                            {{ $isSoldOut ? 'opacity-50 cursor-not-allowed border-red-500 border-2' : 'hover:shadow-xl' }}">
-                    <div class="h-48 bg-gray-200 flex items-center justify-center overflow-hidden relative">
+                    <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden relative">
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                         @else
-                            <span class="text-gray-500">{{ $product->name }}</span>
+                            <span class="text-gray-500 dark:text-gray-400">{{ $product->name }}</span>
                         @endif
                         
                         @if($isSoldOut)
@@ -76,8 +76,8 @@
                         @endif
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold truncate" style="color: #072138;">{{ $product->name }}</h3>
-                        <p class="text-sm mt-1" style="color: #F3C32A;">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white truncate">{{ $product->name }}</h3>
+                        <p class="text-sm text-pink-600 dark:text-pink-400 mt-1">
                             @if($product->category)
                                 {{ $product->category->name }}
                             @else
@@ -90,7 +90,7 @@
                             </span>
                         </p>
                         <div class="flex items-center mt-2">
-                            <span class="text-xl font-bold" style="color: #072138;">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                            <span class="text-xl font-bold text-gray-900 dark:text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                             @if($product->original_price)
                                 <span class="text-sm text-gray-400 line-through ml-2">Rp {{ number_format($product->original_price, 0, ',', '.') }}</span>
                             @endif
@@ -106,9 +106,9 @@
                 {{-- Empty State --}}
                 <div class="col-span-full text-center py-12">
                     <div class="text-6xl mb-4">📦</div>
-                    <h3 class="text-xl font-semibold mb-2" style="color: #072138;">Belum Ada Produk</h3>
-                    <p class="text-gray-500 mb-4">Produk belum tersedia saat ini.</p>
-                    <a href="{{ route('home') }}" class="inline-flex items-center px-4 py-2 text-white font-medium rounded-lg transition duration-300 hover:opacity-90" style="background-color: #F3C32A; color: #072138;">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Belum Ada Produk</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-4">Produk belum tersedia saat ini.</p>
+                    <a href="{{ route('home') }}" class="inline-flex items-center px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg transition duration-300">
                         Kembali ke Home
                     </a>
                 </div>

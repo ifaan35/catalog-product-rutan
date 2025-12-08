@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Indonesia Area API Routes (without authentication)
+use App\Http\Controllers\IndonesiaAreaController;
+
+Route::get('/indonesia/provinces', [IndonesiaAreaController::class, 'provinces']);
+Route::get('/indonesia/regencies/{provinceId}', [IndonesiaAreaController::class, 'regencies']);
+Route::get('/indonesia/districts/{regencyId}', [IndonesiaAreaController::class, 'districts']);
+Route::get('/indonesia/villages/{districtId}', [IndonesiaAreaController::class, 'villages']);

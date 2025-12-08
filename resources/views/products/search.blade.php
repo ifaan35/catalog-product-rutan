@@ -61,7 +61,7 @@
                 <a href="{{ route('product.show', $product->id) }}" class="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
                     <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                         @else
                             <span class="text-gray-500 dark:text-gray-400">{{ $product->name }}</span>
                         @endif

@@ -16,7 +16,7 @@
             {{-- KOLOM KIRI: GALERI GAMBAR --}}
             <div class="relative">
                 @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
+                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
                 @else
                     <div class="w-full h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-gray-500 dark:text-gray-400">{{ $product->name }}</span>
@@ -34,9 +34,9 @@
             <div>
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">{{ $product->name }}</h1>
                 <div class="flex items-center mb-4">
-                    <p class="text-2xl font-extrabold" style="color: #F3C32A;">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                    <p class="text-2xl font-extrabold text-pink-600 dark:text-pink-400">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                     @if($product->original_price)
-                        <p class="text-lg line-through ml-3" style="color: #072138; opacity: 0.5;">Rp {{ number_format($product->original_price, 0, ',', '.') }}</p>
+                        <p class="text-lg line-through ml-3 text-gray-500 dark:text-gray-400">Rp {{ number_format($product->original_price, 0, ',', '.') }}</p>
                     @endif
                 </div>
                 <p class="text-gray-600 dark:text-gray-400 mb-2">{{ $product->description }}</p>
@@ -55,8 +55,8 @@
                     @if(!$isSoldOut)
                         {{-- Size Selector --}}
                         <div class="mb-4">
-                            <label for="size" class="block text-sm font-medium mb-1" style="color: #072138;">Pilih Ukuran:</label>
-                            <select id="size" name="size" class="border rounded-md px-3 py-2 w-full md:w-1/3 focus:outline-none focus:ring-2" style="border-color: #DFE1E3; focus:ring-color: #F3C32A;">
+                            <label for="size" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Ukuran:</label>
+                            <select id="size" name="size" class="border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 dark:bg-gray-900 dark:text-gray-300">
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L (Stok: {{ $product->stock }})</option>
@@ -65,12 +65,12 @@
                         
                         <div class="flex items-center space-x-4 mb-6">
                             <div class="flex items-center space-x-2">
-                                <label for="quantity" class="text-sm font-medium" style="color: #072138;">Jumlah:</label>
-                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}" class="border rounded-md px-3 py-2 w-20 focus:outline-none focus:ring-2" style="border-color: #DFE1E3; focus:ring-color: #F3C32A;">
+                                <label for="quantity" class="text-sm font-medium text-gray-700 dark:text-gray-300">Jumlah:</label>
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}" class="border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2 w-20 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 dark:bg-gray-900 dark:text-gray-300">
                             </div>
                             
                             {{-- Tombol Add to Cart --}}
-                            <button type="submit" class="px-6 py-3 rounded-lg font-semibold text-white transition duration-300 hover:opacity-90 shadow-md" style="background-color: #F3C32A; color: #072138;">
+                            <button type="submit" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-lg font-semibold transition duration-300 shadow-md">
                                 🛒 Tambah ke Keranjang
                             </button>
                         </div>
@@ -107,7 +107,7 @@
                                {{ $relatedSoldOut ? 'opacity-50 cursor-not-allowed border-red-500 border-2' : 'hover:shadow-xl' }}">
                          <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden relative">
                             @if($related->image)
-                                <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}" class="w-full h-full object-cover">
+                                <img src="{{ asset($related->image) }}" alt="{{ $related->name }}" class="w-full h-full object-cover">
                             @else
                                 <span class="text-gray-500 dark:text-gray-400">{{ $related->name }}</span>
                             @endif
@@ -120,7 +120,13 @@
                         </div>
                         <div class="p-4">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white truncate">{{ $related->name }}</h3>
-                            <p class="text-sm text-pink-600 dark:text-pink-400 mt-1">{{ $related->category }}</p>
+                            <p class="text-sm text-pink-600 dark:text-pink-400 mt-1">
+                                @if($related->category)
+                                    {{ $related->category->name }}
+                                @else
+                                    Tidak berkategori
+                                @endif
+                            </p>
                             <p class="text-sm text-gray-500 mt-1">Stok: 
                                 <span class="font-bold text-{{ $relatedSoldOut ? 'red' : 'green' }}-600">
                                     {{ $relatedSoldOut ? 'HABIS' : $related->stock }}

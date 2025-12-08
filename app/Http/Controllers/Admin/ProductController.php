@@ -35,12 +35,12 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'description' => 'nullable',
+            'description' => 'required',
             'price' => 'required|integer|min:1000',
             'stock' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             // Gambar: maks 2MB, harus jpg, jpeg, atau png
-            'image' => 'required|image|max:2048', 
+            'image' => 'nullable|image|max:2048', 
         ]);
 
         $validatedData['image'] = null;
@@ -72,10 +72,10 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'description' => 'nullable',
+            'description' => 'required',
             'price' => 'required|integer|min:1000',
             'stock' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image|max:2048',
         ]);
 

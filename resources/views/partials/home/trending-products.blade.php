@@ -14,12 +14,12 @@
             @if(!$isSoldOut) href="{{ route('product.show', $product->id) }}" @endif
             class="block bg-white rounded-lg shadow-md transition duration-300 overflow-hidden border-2 border-transparent 
                    {{ $isSoldOut ? 'opacity-50 cursor-not-allowed border-red-500' : 'hover:shadow-xl hover:border-opacity-30' }}"
-            @if(!$isSoldOut) style="hover:border-color: #F3C32A;" @endif>
+            @if(!$isSoldOut) hover:border-pink-300 dark:hover:border-pink-600 @endif>
             
             {{-- Area Gambar --}}
             <div class="h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center relative overflow-hidden">
                 @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover {{ !$isSoldOut ? 'transition duration-500 hover:scale-105' : '' }}">
+                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover {{ !$isSoldOut ? 'transition duration-500 hover:scale-105' : '' }}">
                 @else
                     <span class="text-gray-500 dark:text-gray-400">{{ $product->name }}</span>
                 @endif
@@ -34,8 +34,8 @@
 
             {{-- Area Detail --}}
             <div class="p-4">
-                <h3 class="text-lg font-semibold truncate" style="color: #072138;">{{ $product->name }}</h3>
-                <p class="text-sm mt-1" style="color: #F3C32A;">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white truncate">{{ $product->name }}</h3>
+                <p class="text-sm text-pink-600 dark:text-pink-400 mt-1">
                     @if($product->category)
                         {{ $product->category->name }}
                     @else
@@ -49,9 +49,9 @@
                 </p>
                 <div class="flex items-center justify-between mt-2">
                     <div>
-                        <span class="text-xl font-bold" style="color: #072138;">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                        <span class="text-xl font-bold text-gray-900 dark:text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
                         @if($product->original_price)
-                            <span class="text-sm line-through ml-2" style="color: #072138; opacity: 0.5;">Rp {{ number_format($product->original_price, 0, ',', '.') }}</span>
+                            <span class="text-sm line-through ml-2 text-gray-500 dark:text-gray-400">Rp {{ number_format($product->original_price, 0, ',', '.') }}</span>
                         @endif
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                     <form action="{{ route('cart.store', $product) }}" method="POST" class="mt-3" onclick="event.stopPropagation();">
                         @csrf
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="w-full py-2 px-3 text-xs font-semibold rounded-lg transition duration-300 hover:opacity-90" style="background-color: #F3C32A; color: #072138;">
+                        <button type="submit" class="w-full py-2 px-3 bg-pink-600 hover:bg-pink-700 text-white text-xs font-semibold rounded-lg transition duration-300">
                             🛒 Tambah ke Keranjang
                         </button>
                     </form>
@@ -82,7 +82,7 @@
 
 {{-- View All Products Link --}}
 <div class="text-center mt-8 sm:mt-12">
-    <a href="{{ route('products.index') }}" class="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-medium rounded-full transition duration-300 transform hover:scale-105 shadow-lg hover:opacity-90" style="background-color: #F3C32A; color: #072138;">
+    <a href="{{ route('products.index') }}" class="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 bg-pink-600 hover:bg-pink-700 text-white text-sm sm:text-base font-medium rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
         Lihat Semua Produk
         <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

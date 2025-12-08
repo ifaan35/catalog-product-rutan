@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Cek apakah kolom category_id sudah ada
-            if (!Schema::hasColumn('products', 'category_id')) {
-                // Tambahkan kolom category_id tanpa foreign key dulu
-                $table->unsignedBigInteger('category_id')->nullable()->after('id');
+            // Add foreign key constraint if column exists
+            if (Schema::hasColumn('products', 'category_id')) {
+                $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             }
         });
     }
@@ -26,14 +25,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Drop foreign key dan kolom jika ada
             if (Schema::hasColumn('products', 'category_id')) {
                 try {
                     $table->dropForeign(['category_id']);
                 } catch (\Exception $e) {
-                    // Foreign key tidak ada, skip
+                    // Foreign key tidak ada
                 }
-                $table->dropColumn('category_id');
             }
         });
     }

@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="navbar shadow-lg" style="background-color: #07213C; border-bottom: 3px solid #ECBF62;">
+<nav x-data="{ open: false, cartCount: {{ session('cart_count', 0) }} }" class="navbar shadow-lg" style="background-color: #07213C; border-bottom: 3px solid #ECBF62;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
@@ -20,11 +20,15 @@
                 <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 px-3 py-2 text-sm">
                     About
                 </a>
-                <a href="{{ route('cart.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm flex items-center gap-2">
+                <a href="{{ route('cart.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm flex items-center gap-2 relative">
                     🛒 Cart
+                    <span x-show="cartCount > 0" 
+                          x-text="cartCount"
+                          class="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center cart-badge"
+                          style="animation: pulse-badge 0.5s ease-out;"></span>
                 </a>
                 <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
-                    Chekout
+                    Checkout
                 </a>
 
                 @auth
@@ -94,11 +98,15 @@
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 About
             </a>
-            <a href="{{ route('cart.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
+            <a href="{{ route('cart.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300 relative">
                 🛒 Cart
+                <span x-show="cartCount > 0" 
+                      x-text="cartCount"
+                      class="absolute top-2 right-4 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center cart-badge"
+                      style="animation: pulse-badge 0.5s ease-out;"></span>
             </a>
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
-                Chekout
+                Checkout
             </a>
 
             @auth

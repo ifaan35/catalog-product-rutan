@@ -43,6 +43,7 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
+        $this->updateCartCount();
 
         return redirect()->back()->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
@@ -66,6 +67,7 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
+        $this->updateCartCount();
 
         return redirect()->back()->with('success', 'Keranjang berhasil diperbarui!');
     }
@@ -83,6 +85,18 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
 
+        $this->updateCartCount();
+
         return redirect()->back()->with('success', 'Produk berhasil dihapus dari keranjang!');
+    }
+
+    /**
+     * Update cart count in session.
+     */
+    private function updateCartCount()
+    {
+        $cart = session()->get('cart', []);
+        $cartCount = array_sum(array_column($cart, 'quantity'));
+        session()->put('cart_count', $cartCount);
     }
 }

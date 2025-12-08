@@ -92,36 +92,37 @@
         <div class="relative">
             
             {{-- 2. Featured Products Section --}}
-            <section class="py-20 sm:py-28" style="background-color: white;">
+            <section class="py-24 sm:py-32" style="background: linear-gradient(180deg, #F5F6F8 0%, white 100%);">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
+                    <div class="text-center mb-20">
                         <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4" style="background-color: rgba(236, 191, 98, 0.15); color: #ECBF62;">
                             🏆 PILIHAN TERBAIK
                         </span>
-                        <h2 class="text-4xl sm:text-5xl font-black mb-4" style="color: #07213C;">
+                        <h2 class="text-5xl sm:text-6xl font-black mb-6" style="color: #07213C;">
                             Produk <span style="color: #ECBF62;">Unggulan</span>
                         </h2>
-                        <div class="w-20 h-1 mx-auto" style="background-color: #ECBF62;"></div>
+                        <p class="text-xl opacity-70" style="color: #6B7280;">
+                            Koleksi produk terpopuler dengan rating terbaik dari pelanggan
+                        </p>
+                        <div class="w-24 h-1 mx-auto mt-6" style="background: linear-gradient(90deg, #ECBF62 0%, transparent 100%);"></div>
                     </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         @forelse($trendingProducts as $product)
                             @php $isSoldOut = $product->stock <= 0; @endphp
-                            <div class="group h-full">
-                                <a href="{{ route('product.show', $product->id) }}" class="block bg-white rounded-2xl overflow-hidden transition-all duration-300 transform hover:shadow-xl h-full border border-gray-200">
+                            <div class="group h-full" style="opacity: {{ $isSoldOut ? '0.6' : '1' }};">
+                                <a href="{{ route('product.show', $product->id) }}" class="block bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-4 hover:shadow-3xl h-full border border-gray-100">
                                     <!-- Product Image -->
-                                    <div class="relative overflow-hidden h-56" style="background: linear-gradient(135deg, #E1E2E4 0%, #D3D4D7 100%);">
+                                    <div class="relative overflow-hidden h-64" style="background: linear-gradient(135deg, #E1E2E4 0%, #d9dadc 100%);">
                                         @if($product->image)
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                        @elseif($product->image_url)
-                                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                                         @else
-                                            <div class="flex items-center justify-center h-full text-6xl">📦</div>
+                                            <div class="flex items-center justify-center h-full text-5xl">📦</div>
                                         @endif
                                         
                                         {{-- Badge --}}
                                         @if($product->is_trending)
-                                            <div class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold shadow-md" style="background-color: #ECBF62; color: #07213C;">
+                                            <div class="absolute top-4 right-4 px-4 py-2 rounded-full text-xs font-bold shadow-lg" style="background-color: #ECBF62; color: #07213C;">
                                                 🔥 Trending
                                             </div>
                                         @endif
@@ -134,32 +135,35 @@
                                     </div>
                                     
                                     <!-- Product Info -->
-                                    <div class="p-5">
-                                        <h3 class="text-sm font-bold mb-2 line-clamp-2 group-hover:text-yellow-600 transition" style="color: #07213C;">
+                                    <div class="p-6">
+                                        <p class="text-xs font-black mb-3 opacity-60 tracking-wider" style="color: #ECBF62; text-transform: uppercase;">
+                                            {{ $product->category?->name ?? 'Uncategorized' }}
+                                        </p>
+                                        <h3 class="text-lg font-bold mb-3 line-clamp-2 group-hover:text-yellow-600 transition" style="color: #07213C;">
                                             {{ $product->name }}
                                         </h3>
                                         
                                         <div class="flex items-baseline gap-2 mb-4">
-                                            <span class="text-2xl font-black" style="color: #ECBF62;">
+                                            <span class="text-3xl font-black" style="color: #ECBF62;">
                                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                                             </span>
                                             @if($product->original_price)
-                                                <span class="text-xs line-through opacity-50" style="color: #6B7280;">
+                                                <span class="text-sm line-through opacity-50" style="color: #6B7280;">
                                                     Rp {{ number_format($product->original_price, 0, ',', '.') }}
                                                 </span>
                                             @endif
                                         </div>
                                         
-                                        <div class="flex items-center justify-between gap-2">
-                                            <span class="text-xs font-semibold" style="color: #6B7280;">
-                                                📦 <span style="color: {{ $product->stock > 5 ? '#10B981' : '#EF4444' }};">{{ $product->stock }} stok</span>
+                                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                                            <span class="text-sm font-semibold" style="color: #6B7280;">
+                                                📦 <span style="color: {{ $product->stock > 5 ? '#10B981' : '#F59E0B' }};">{{ $product->stock }} stok</span>
                                             </span>
                                             @if(!$isSoldOut)
                                                 <form action="{{ route('cart.store', $product) }}" method="POST" onclick="event.stopPropagation();">
                                                     @csrf
                                                     <input type="hidden" name="quantity" value="1">
-                                                    <button type="submit" class="px-3 py-2 rounded text-xs font-bold transition-all duration-300 hover:shadow-lg hover:scale-105" style="background-color: #ECBF62; color: #07213C;">
-                                                        Add
+                                                    <button type="submit" class="px-4 py-2 rounded-lg transition-all duration-300 text-sm font-bold hover:shadow-lg hover:scale-105" style="background-color: #ECBF62; color: #07213C;">
+                                                        🛒 Add
                                                     </button>
                                                 </form>
                                             @endif
@@ -181,8 +185,8 @@
                     </div>
                 </div>
             </section>
-            {{-- 3. Section Kategori (Hidden) --}}
-            <section class="hidden py-32 sm:py-40" style="background-color: white;">
+            {{-- 3. Section Kategori --}}
+            <section class="py-32 sm:py-40" style="background-color: white;">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-20">
                         <h2 class="text-4xl sm:text-5xl font-black mb-6" style="color: #07213C;">

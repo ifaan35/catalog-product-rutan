@@ -24,8 +24,8 @@
                     🛒 Cart
                     <span x-show="cartCount > 0" 
                           x-text="cartCount"
-                          class="absolute bg-red-500 text-white font-bold rounded-full flex items-center justify-center cart-badge"
-                          style="top: -10px; right: -12px; width: 28px; height: 28px; font-size: 13px; animation: pulse-badge 0.5s ease-out; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);"></span>
+                          class="absolute font-bold rounded-full flex items-center justify-center cart-badge"
+                          style="top: -15px; right: -17px; width: 28px; height: 28px; font-size: 13px; animation: pulse-badge 0.5s ease-out; background-color: #A8AAAD; color: #ECBF62; box-shadow: 0 2px 8px rgba(168, 170, 173, 0.5);"></span>
                 </a>
                 <a href="#" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
                     Checkout
@@ -33,7 +33,7 @@
 
                 @auth
                     @if(Auth::user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="font-bold py-2 px-4 rounded-lg transition duration-300 hover:shadow-lg" style="background-color: #10B981; color: white;">
+                        <a href="{{ route('admin.dashboard') }}" class="font-bold py-2 px-4 rounded-lg transition duration-300 hover:shadow-lg" style="background-color: hsl(105, 2%, 46%); color: white;">
                             👨‍💼 Admin
                         </a>
                     @endif
@@ -102,8 +102,8 @@
                 🛒 Cart
                 <span x-show="cartCount > 0" 
                       x-text="cartCount"
-                      class="absolute bg-red-500 text-white font-bold rounded-full flex items-center justify-center cart-badge"
-                      style="top: -4px; right: -8px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);"></span>
+                      class="absolute font-bold rounded-full flex items-center justify-center cart-badge"
+                      style="top: -4px; right: -8px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; background-color: #A8AAAD; color: #ECBF62; box-shadow: 0 2px 8px rgba(168, 170, 173, 0.5);"></span>
             </a>
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 Checkout

@@ -16,7 +16,7 @@
             {{-- KOLOM KIRI: GALERI GAMBAR --}}
             <div class="relative">
                 @if($product->image)
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
                 @elseif($product->image_url)
                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
                 @else

@@ -2,7 +2,7 @@
 
 <x-app-layout>
     {{-- Container utama --}}
-    <div class="min-h-screen" style="background-color: #DFE1E3;">
+    <div class="min-h-screen" style="background-color: #F5F6F8;">
         
         {{-- 1. Hero Section / Banner Utama --}}
         <section class="pb-0">
@@ -20,7 +20,7 @@
             </section>
 
             {{-- 3. Section Produk Trending --}}
-            <section class="section-padding py-12 sm:py-16" style="background-color: #DFE1E3;">
+            <section class="section-padding py-12 sm:py-16" style="background-color: #F5F6F8;">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     @include('partials.home.trending-products')
                 </div>

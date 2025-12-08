@@ -59,7 +59,7 @@
                                 <div class="flex-1">
                                     <span style="color: #07213C;">{{ $item['name'] }}</span>
                                     <div class="text-xs" style="color: #6B7280;">
-                                        Ukuran: {{ $item['size'] }} | Qty: {{ $item['quantity'] }}
+                                        Qty: {{ $item['quantity'] }}
                                     </div>
                                 </div>
                                 <span class="font-semibold ml-2" style="color: #ECBF62;">

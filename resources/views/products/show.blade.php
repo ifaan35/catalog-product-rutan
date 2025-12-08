@@ -55,16 +55,6 @@
                     @csrf
                     
                     @if(!$isSoldOut)
-                        {{-- Size Selector --}}
-                        <div class="mb-4">
-                            <label for="size" class="block text-sm font-medium mb-1" style="color: #07213C;">Pilih Ukuran:</label>
-                            <select id="size" name="size" class="border rounded-md px-3 py-2 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:border-0" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;">
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L (Stok: {{ $product->stock }})</option>
-                            </select>
-                        </div>
-                        
                         <div class="flex items-center space-x-4 mb-6">
                             <div class="flex items-center space-x-2">
                                 <label for="quantity" class="text-sm font-medium" style="color: #07213C;">Jumlah:</label>

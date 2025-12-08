@@ -81,7 +81,6 @@ class CheckoutController extends Controller
                     'product_name' => $item['name'], // Simpan nama saat beli (jaga-jaga nama produk berubah nanti)
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
-                    'size' => $item['size'] ?? 'Default',
                 ]);
 
                 // Kurangi Stok Produk

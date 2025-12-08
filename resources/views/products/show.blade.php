@@ -17,6 +17,8 @@
             <div class="relative">
                 @if($product->image)
                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
+                @elseif($product->image_url)
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
                 @else
                     <div class="w-full h-96 rounded-lg flex items-center justify-center mb-4" style="background-color: #E1E2E4;">
                         <span style="color: #6B7280;">{{ $product->name }}</span>

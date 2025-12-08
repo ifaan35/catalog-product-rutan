@@ -65,6 +65,8 @@
                     <div class="h-48 flex items-center justify-center overflow-hidden relative" style="background-color: #E1E2E4;">
                         @if($product->image)
                             <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                        @elseif($product->image_url)
+                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                         @else
                             <span style="color: #6B7280;">{{ $product->name }}</span>
                         @endif

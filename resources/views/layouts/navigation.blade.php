@@ -103,7 +103,7 @@
                 <span x-show="cartCount > 0" 
                       x-text="cartCount"
                       class="absolute font-bold rounded-full flex items-center justify-center cart-badge"
-                      style="top: -4px; right: -8px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; color: #ECBF62; "></span>
+                      style="top: -15px; right: -15px; width: 24px; height: 24px; font-size: 12px; animation: pulse-badge 0.5s ease-out; color: #ECBF62;"></span>
             </a>
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 Checkout

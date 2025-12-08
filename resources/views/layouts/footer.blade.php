@@ -1,5 +1,5 @@
 <!-- Footer Section -->
-<footer style="background-color: #07213C; color: white; padding-top: 4rem; padding-bottom: 4rem;">
+<footer style="background-color: #07213C; color: white; padding-top: 4rem; padding-bottom: 4rem; padding-top: 4rem; padding-bottom: 4rem;">
     <!-- Main Footer Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">

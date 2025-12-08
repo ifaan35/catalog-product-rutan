@@ -27,6 +27,14 @@
                     Chekout
                 </a>
 
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="font-bold py-2 px-4 rounded-lg transition duration-300 hover:shadow-lg" style="background-color: #10B981; color: white;">
+                            👨‍💼 Admin
+                        </a>
+                    @endif
+                @endauth
+
                 @guest
                     <a href="{{ route('login') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm">
                         Login
@@ -92,6 +100,14 @@
             <a href="#" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 Chekout
             </a>
+
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-3 font-bold rounded-lg transition duration-300 m-2" style="background-color: #10B981; color: white;">
+                        👨‍💼 Admin Dashboard
+                    </a>
+                @endif
+            @endauth
         </div>
 
         <!-- Mobile Auth Section -->

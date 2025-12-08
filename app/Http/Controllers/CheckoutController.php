@@ -95,13 +95,27 @@ class CheckoutController extends Controller
 
             DB::commit(); // Simpan perubahan permanen
 
-            // Redirect ke halaman sukses (atau halaman riwayat pesanan)
-            return redirect()->route('home')->with('success', 'Pesanan berhasil dibuat! Nomor Order: ' . $order->order_number);
+            // Redirect ke halaman sukses dengan menampilkan detail order
+            return redirect()->route('checkout.success', $order->id)->with('success', 'Pesanan berhasil dibuat!');
 
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan semua perubahan jika ada error
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Show success page with order details
+     */
+    public function success(Order $order)
+    {
+        // Pastikan user hanya bisa melihat order miliknya
+        if ($order->user_id !== Auth::id()) {
+            return redirect()->route('home')->with('error', 'Anda tidak berhak mengakses pesanan ini.');
+        }
+
+        $order->load('orderItems');
+        return view('checkout.success', compact('order'));
     }
 
     public function history()

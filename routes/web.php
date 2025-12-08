@@ -56,7 +56,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-    Route::get('/orders/history', [CheckoutController::class, 'history'])->name('orders.history');
+    Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/orders/history', [CheckoutController::class, 'history'])->name('checkout.history');
     
     // Rute Riwayat Pesanan (Order History)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

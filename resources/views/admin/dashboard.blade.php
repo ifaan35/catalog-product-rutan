@@ -70,9 +70,17 @@
         .recent-orders-container {
             animation: slideIn 0.8s ease-out 0.8s both;
         }
+
+        body {
+            background-color: #E1E2E4 !important;
+        }
+
+        .dashboard-bg {
+            background-color: #E1E2E4;
+        }
     </style>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 dashboard-bg" style="background-color: #E1E2E4; min-height: 100vh; border-radius: 0;">
         <!-- Header Section -->
         <div class="header-gradient mb-8">
             <div class="flex items-center justify-between">

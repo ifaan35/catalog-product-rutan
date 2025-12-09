@@ -30,10 +30,16 @@
                         <span>📞</span>
                         <span>082213148093</span>
                     </p>
-                    <p class="mt-3 font-semibold">Email Kehumasan</p>
-                    <p class="text-xs">humas.rutantanahgrogot@gmail.com</p>
-                    <p class="mt-2 font-semibold">Email Resmi</p>
-                    <p class="text-xs">rutantanahgrogot@kemenkumham.go.id</p>
+                    <p class="mt-3 font-semibold flex items-center gap-2">
+                        <span>✉️</span>
+                        <span>Email Kehumasan</span>
+                    </p>
+                    <p class="text-xs ml-6">humas.rutantanahgrogot@gmail.com</p>
+                    <p class="mt-2 font-semibold flex items-center gap-2">
+                        <span>✉️</span>
+                        <span>Email Resmi</span>
+                    </p>
+                    <p class="text-xs ml-6">rutantanahgrogot@kemenkumham.go.id</p>
                 </div>
 
                 <!-- Social Links -->

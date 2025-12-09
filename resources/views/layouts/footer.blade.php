@@ -8,7 +8,7 @@
             <div>
                 <!-- Logo -->
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/4/43/Lambang_Kementerian_Hukum_dan_Hak_Asasi_Manusia_RI.png/200px-Lambang_Kementerian_Hukum_dan_Hak_Asasi_Manusia_RI.png" 
+                    <img src="{{ asset('images/logo/FA_Logo_Kementrian_Imigrasi_dan_Pemasyarakatan.png') }}" 
                          alt="Logo Kemenkumham" class="w-12 h-12">
                     <div>
                         <h3 class="font-bold text-sm leading-tight" style="color: #ECBF62;">
@@ -30,16 +30,26 @@
                         <span>📞</span>
                         <span>082213148093</span>
                     </p>
-                    <p class="mt-3 font-semibold flex items-center gap-2">
-                        <span>✉️</span>
-                        <span>Email Kehumasan</span>
-                    </p>
-                    <p class="text-xs ml-6">humas.rutantanahgrogot@gmail.com</p>
-                    <p class="mt-2 font-semibold flex items-center gap-2">
-                        <span>✉️</span>
-                        <span>Email Resmi</span>
-                    </p>
-                    <p class="text-xs ml-6">rutantanahgrogot@kemenkumham.go.id</p>
+                    <div class="mt-3">
+                        <p class="font-semibold flex items-center gap-2">
+                            <span>✉️</span>
+                            <span>Email Kehumasan</span>
+                        </p>
+                        <p class="text-xs flex items-start gap-2">
+                            <span style="width: 20px;"></span>
+                            <span>humas.rutantanahgrogot@gmail.com</span>
+                        </p>
+                    </div>
+                    <div class="mt-2">
+                        <p class="font-semibold flex items-center gap-2">
+                            <span>✉️</span>
+                            <span>Email Resmi</span>
+                        </p>
+                        <p class="text-xs flex items-start gap-2">
+                            <span style="width: 20px;"></span>
+                            <span>rutantanahgrogot@kemenkumham.go.id</span>
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Social Links -->

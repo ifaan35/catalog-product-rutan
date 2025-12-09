@@ -21,7 +21,7 @@ class Product extends Model
         'original_price',
         'stock',
         'image',
-        'category',
+        'category_id',
         'is_trending',
         'image_url'
     ];

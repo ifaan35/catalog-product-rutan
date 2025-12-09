@@ -155,19 +155,37 @@
     </div>
 
     <script>
-        const API_BASE = 'https://emsifa.github.io/api-wilayah-indonesia/api';
+        const API_BASE = '/api/indonesia';
 
         // Load provinces on page load
         document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOMContentLoaded - Loading provinces...');
             await loadProvinces();
         });
 
         // Load provinces
         async function loadProvinces() {
             try {
+                console.log('Starting to load provinces from:', API_BASE + '/provinces');
                 document.getElementById('province_loading').style.display = 'inline';
-                const response = await fetch(`${API_BASE}/provinces.json`);
+                document.getElementById('province_loading').textContent = 'Memuat data provinsi...';
+                
+                const response = await fetch(`${API_BASE}/provinces`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
+                console.log('Provinces loaded:', data.length, 'items');
                 
                 const select = document.getElementById('province_id');
                 select.innerHTML = '<option value="">-- Pilih Provinsi --</option>';
@@ -180,9 +198,14 @@
                 });
                 
                 document.getElementById('province_loading').style.display = 'none';
+                console.log('Provinces loaded successfully!');
             } catch (error) {
                 console.error('Error loading provinces:', error);
-                alert('Gagal memuat data provinsi. Silakan refresh halaman.');
+                document.getElementById('province_loading').style.display = 'inline';
+                document.getElementById('province_loading').textContent = '❌ Gagal memuat. Klik untuk mencoba lagi.';
+                document.getElementById('province_loading').style.cursor = 'pointer';
+                document.getElementById('province_loading').style.color = '#EF4444';
+                document.getElementById('province_loading').onclick = loadProvinces;
             }
         }
 
@@ -212,7 +235,18 @@
         async function loadRegencies(provinceId) {
             try {
                 document.getElementById('regency_loading').style.display = 'inline';
-                const response = await fetch(`${API_BASE}/regencies/${provinceId}.json`);
+                const response = await fetch(`${API_BASE}/regencies/${provinceId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 const select = document.getElementById('regency_id');
@@ -229,7 +263,7 @@
                 document.getElementById('regency_loading').style.display = 'none';
             } catch (error) {
                 console.error('Error loading regencies:', error);
-                alert('Gagal memuat data kabupaten/kota.');
+                document.getElementById('regency_loading').style.display = 'none';
             }
         }
 
@@ -257,7 +291,18 @@
         async function loadDistricts(regencyId) {
             try {
                 document.getElementById('district_loading').style.display = 'inline';
-                const response = await fetch(`${API_BASE}/districts/${regencyId}.json`);
+                const response = await fetch(`${API_BASE}/districts/${regencyId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 const select = document.getElementById('district_id');
@@ -274,7 +319,7 @@
                 document.getElementById('district_loading').style.display = 'none';
             } catch (error) {
                 console.error('Error loading districts:', error);
-                alert('Gagal memuat data kecamatan.');
+                document.getElementById('district_loading').style.display = 'none';
             }
         }
 
@@ -300,7 +345,18 @@
         async function loadVillages(districtId) {
             try {
                 document.getElementById('village_loading').style.display = 'inline';
-                const response = await fetch(`${API_BASE}/villages/${districtId}.json`);
+                const response = await fetch(`${API_BASE}/villages/${districtId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 const select = document.getElementById('village_id');
@@ -317,7 +373,7 @@
                 document.getElementById('village_loading').style.display = 'none';
             } catch (error) {
                 console.error('Error loading villages:', error);
-                alert('Gagal memuat data kelurahan/desa.');
+                document.getElementById('village_loading').style.display = 'none';
             }
         }
 

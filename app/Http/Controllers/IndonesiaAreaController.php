@@ -152,4 +152,27 @@ class IndonesiaAreaController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    /**
+     * Route aliases untuk API endpoints
+     */
+    public function provinces()
+    {
+        return $this->getProvinces();
+    }
+
+    public function regencies($provinceId)
+    {
+        return $this->getRegencies($provinceId);
+    }
+
+    public function districts($regencyId)
+    {
+        return $this->getDistricts($regencyId);
+    }
+
+    public function villages($districtId)
+    {
+        return $this->getVillages($districtId);
+    }
 }

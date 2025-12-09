@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderManagementController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,13 @@ Route::get('/category/{category}', [ProductController::class, 'category'])->name
 
 // Rute untuk pencarian produk
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+
+// Rute untuk Socialite OAuth - Redirect
+Route::get('/auth/{provider}', [SocialController::class, 'redirectToProvider'])->name('socialite.redirect')->where('provider', 'google|facebook|github');
+
+// Rute untuk Socialite OAuth - Callback (specific routes first)
+Route::get('/auth/google/callback', [SocialController::class, 'handleProviderCallback'])->name('google.callback');
+Route::get('/auth/{provider}/callback', [SocialController::class, 'handleProviderCallback'])->name('socialite.callback')->where('provider', 'facebook|github');
 
 // Rute untuk Keranjang Belanja
 Route::prefix('cart')->group(function () {

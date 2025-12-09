@@ -22,7 +22,7 @@
                 <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 transition duration-300" style="background-color: rgba(236, 191, 98, 0.15);">
                     <span class="text-xl sm:text-2xl">{{ $categoryIcons[$category->name] ?? '📦' }}</span>
                 </div>
-                <h3 class="text-sm sm:text-base font-semibold" style="color: #07213C;">{{ $category->name }}</h3>
+                <h3 class="text-sm sm:text-base font-semibold" style="color: #07213C;">{{ ucfirst(strtolower($category->name)) }}</h3>
                 <p class="text-xs sm:text-sm" style="color: #6B7280;">{{ $categoryDescriptions[$category->name] ?? $category->description }}</p>
             </a>
         @empty

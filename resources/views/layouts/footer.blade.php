@@ -97,7 +97,7 @@
                 <ul class="space-y-3 text-sm">
                     <li class="flex gap-2">
                         <span>📍</span>
-                        <span>Jakarta, Indonesia</span>
+                        <span>Tanah Grogot, Indonesia</span>
                     </li>
                     <li class="flex gap-2">
                         <span>📞</span>

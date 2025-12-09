@@ -18,6 +18,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
+       
+
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 relative overflow-hidden" 
              style="background: linear-gradient(135deg, #0a1628 0%, #0f2744 50%, #1a3a5c 100%);">
             
@@ -42,6 +44,9 @@
             <!-- Logo and Title -->
             <div class="text-center mb-8 relative z-10">
                 <a href="{{ route('home') }}" class="inline-block">
+                    <img src="{{ asset('images/logo/FA_Logo_Kementrian_Imigrasi_dan_Pemasyarakatan.png') }}" 
+                         alt="Logo Kementerian Imigrasi dan Pemasyarakatan" 
+                         class="h-20 w-auto mx-auto mb-4">
                     <h1 class="text-4xl font-bold text-white tracking-tight mb-2">
                         RUTAN SHOP
                     </h1>
@@ -50,20 +55,9 @@
             </div>
 
             <!-- Form Container -->
-            <div class="w-full sm:max-w-md mt-6 px-8 py-8 bg-white shadow-2xl overflow-hidden sm:rounded-2xl relative z-10 backdrop-blur-sm" 
+            <div class="w-full sm:max-w-md mt-6 px-8 py-8 bg-white shadow-2xl overflow-hidden sm:rounded-lg relative z-10 backdrop-blur-sm" 
                  style="background: rgba(255, 255, 255, 0.98);">
                 {{ $slot }}
-            </div>
-            
-            <!-- Back to Home -->
-            <div class="mt-8 text-center relative z-10">
-                <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-3 rounded-lg font-medium transition duration-300 transform hover:scale-105" 
-                   style="color: #ECBF62; background: rgba(236, 191, 98, 0.1); backdrop-filter: blur(10px);">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    Kembali ke Beranda
-                </a>
             </div>
         </div>
     </body>

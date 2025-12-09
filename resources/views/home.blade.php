@@ -76,11 +76,31 @@
                     {{-- Right Hero Image --}}
                     <div class="flex items-center justify-center relative slide-in-right">
                         <div class="absolute w-80 h-80 rounded-full opacity-20 float-animation" style="background-color: #ECBF62; right: -40px; top: -40px;"></div>
-                        <div class="relative z-10 w-full h-96 rounded-3xl flex items-center justify-center shadow-2xl" style="background: linear-gradient(135deg, rgba(225, 226, 228, 0.95), rgba(236, 191, 98, 0.15)); backdrop-filter: blur(10px); border: 2px solid rgba(236, 191, 98, 0.3);">
+                        <div class="relative z-10 w-full h-96 rounded-3xl flex flex-col items-center justify-center shadow-2xl p-8" style="background: linear-gradient(135deg, rgba(225, 226, 228, 0.95), rgba(236, 191, 98, 0.15)); backdrop-filter: blur(10px); border: 2px solid rgba(236, 191, 98, 0.3);">
                             <div class="text-center">
-                                <div class="text-8xl mb-4 float-animation">📦</div>
-                                <p class="font-bold text-xl" style="color: #07213C;">Produk Premium</p>
-                                <p class="text-sm opacity-70 mt-2" style="color: #6B7280;">Kualitas Terjamin</p>
+                                <!-- Shield Icon with Checkmark -->
+                                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 shadow-lg float-animation" style="background: linear-gradient(135deg, #ECBF62 0%, #f5d07f 100%);">
+                                    <svg class="w-12 h-12" style="color: #07213C;" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 1.464a1 1 0 00-.894.553L6.71 7H2a1 1 0 00-1 1v8a1 1 0 001 1h.37l1.308 5.232A1 1 0 004.68 23h10.64a1 1 0 00.986-.768L17.63 17H18a1 1 0 001-1v-8a1 1 0 00-1-1h-4.71L10.894 2.017A1 1 0 0010 1.464z" clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd" d="M10 14a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <p class="font-bold text-2xl mb-2" style="color: #07213C;">100% Kualitas Terjamin</p>
+                                <p class="text-sm leading-relaxed opacity-85" style="color: #6B7280;">Kami bekerja langsung dengan petani terverifikasi untuk memastikan setiap produk dalam kondisi prima dan siap dikirim ke tangan Anda.</p>
+                                <div class="mt-6 space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">✅</span>
+                                        <span class="text-sm font-medium" style="color: #07213C;">Produk Segar & Berkualitas</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">✅</span>
+                                        <span class="text-sm font-medium" style="color: #07213C;">Pengiriman Cepat & Aman</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">✅</span>
+                                        <span class="text-sm font-medium" style="color: #07213C;">Harga Paling Kompetitif</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

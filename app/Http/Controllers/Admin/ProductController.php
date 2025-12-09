@@ -46,8 +46,10 @@ class ProductController extends Controller
         $validatedData['image'] = null;
 
         if ($request->hasFile('image')) {
-            // Simpan gambar di folder 'public/products'
-            $validatedData['image'] = $request->file('image')->store('products', 'public');
+            // Simpan gambar di folder 'storage/products' dengan path lengkap
+            $imagePath = $request->file('image')->store('products', 'public');
+            // Tambahkan prefix 'storage/' untuk akses melalui symlink
+            $validatedData['image'] = 'storage/' . $imagePath;
         }
 
         Product::create($validatedData);
@@ -82,10 +84,17 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Hapus gambar lama (jika ada)
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                // Path di disk bisa dengan atau tanpa 'storage/' prefix
+                $pathToDelete = str_replace('storage/', '', $product->image);
+                Storage::disk('public')->delete($pathToDelete);
             }
             // Upload gambar baru
-            $validatedData['image'] = $request->file('image')->store('products', 'public');
+            $imagePath = $request->file('image')->store('products', 'public');
+            // Tambahkan prefix 'storage/' untuk akses melalui symlink
+            $validatedData['image'] = 'storage/' . $imagePath;
+        } else {
+            // Jika tidak ada gambar baru, jangan ubah field image
+            unset($validatedData['image']);
         }
 
         $product->update($validatedData);

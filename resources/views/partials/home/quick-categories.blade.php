@@ -3,17 +3,19 @@
     <h2 class="text-2xl sm:text-3xl font-bold mb-3" style="color: #07213C;">🏦 Kategori Populer</h2>
     <p class="text-sm sm:text-base mb-8 sm:mb-12 px-4" style="color: #6B7280;">Jelajahi produk hasil karya warga binaan berdasarkan sektor unggulan</p>
     
-    <div class="card-grid grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+    <div class="card-grid grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
         @php
             $categoryIcons = [
                 'Peternakan' => '🐄',
                 'Perikanan' => '🐟', 
-                'Pertanian' => '🌾'
+                'Pertanian' => '🌾',
+                'Makanan Olahan' => '🍜'
             ];
             $categoryDescriptions = [
                 'Peternakan' => 'Produk Ternak Segar',
                 'Perikanan' => 'Hasil Laut & Air Tawar',
-                'Pertanian' => 'Hasil Bumi Organik'
+                'Pertanian' => 'Hasil Bumi Organik',
+                'Makanan Olahan' => 'Makanan Berkualitas'
             ];
         @endphp
         
@@ -27,7 +29,7 @@
             </a>
         @empty
             {{-- Fallback jika belum ada kategori --}}
-            <div class="col-span-3 text-center py-8">
+            <div class="col-span-4 text-center py-8">
                 <p style="color: #9CA3AF;">Kategori belum tersedia</p>
             </div>
         @endforelse

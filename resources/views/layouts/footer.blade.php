@@ -1,8 +1,8 @@
 <!-- Footer Section -->
 <footer style="background-color: #07213C; color: white; padding-top: 3rem; padding-bottom: 2rem;">
     <!-- Main Footer Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             
             <!-- Column 1: Brand Info -->
             <div>
@@ -29,36 +29,7 @@
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
-            </div>
-            
-            <!-- Column 2: Quick Links -->
-            <div>
-                <h4 class="text-lg font-bold mb-4" style="color: #ECBF62;">
-                    Navigasi
-                </h4>
-                <ul class="space-y-3 text-sm">
-                    <li>
-                        <a href="{{ route('home') }}" class="hover:text-yellow-400 transition duration-300">
-                            → Beranda
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('products.index') }}" class="hover:text-yellow-400 transition duration-300">
-                            → Semua Produk
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
-                            → Tentang Kami
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
-                            → Blog
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            </div>               
             
             <!-- Column 3: Categories -->
             <div>
@@ -67,23 +38,23 @@
                 </h4>
                 <ul class="space-y-3 text-sm">
                     <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
+                        <a href="{{ route('products.category', 'peternakan') }}" class="hover:text-yellow-400 transition duration-300">
                             🐄 Peternakan
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
+                        <a href="{{ route('products.category', 'perikanan') }}" class="hover:text-yellow-400 transition duration-300">
                             🐟 Perikanan
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
+                        <a href="{{ route('products.category', 'pertanian') }}" class="hover:text-yellow-400 transition duration-300">
                             🌾 Pertanian
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">
-                            📦 Lainnya
+                        <a href="{{ route('products.category', 'makanan-olahan') }}" class="hover:text-yellow-400 transition duration-300">
+                            🍜 Makanan Olahan
                         </a>
                     </li>
                 </ul>
@@ -101,15 +72,15 @@
                     </li>
                     <li class="flex gap-2">
                         <span>📞</span>
-                        <span>+62 812 3456 7890</span>
+                        <span>(0543)21748</span>
                     </li>
                     <li class="flex gap-2">
                         <span>✉️</span>
-                        <span>info@rutanshop.com</span>
+                        <span>rutantanahgrogot@kemenkumham.com</span>
                     </li>
                     <li class="flex gap-2">
                         <span>⏰</span>
-                        <span>Senin - Jumat: 09:00 - 17:00</span>
+                        <span>Senin - Jumat: 08.00 s.d 15.00</span>
                     </li>
                 </ul>
             </div>

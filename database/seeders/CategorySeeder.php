@@ -27,6 +27,10 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Pertanian',
                 'description' => 'Produk-produk hasil pertanian yang ditanam dan dikelola oleh warga binaan'
+            ],
+            [
+                'name' => 'Makanan Olahan',
+                'description' => 'Produk makanan olahan berkualitas yang diproses oleh warga binaan dengan standar kebersihan tinggi'
             ]
         ];
 

@@ -37,9 +37,15 @@ class CheckoutController extends Controller
         $request->validate([
             'recipient_name' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'postal_code' => 'required|string',
+            'province_id' => 'required|string',
+            'province_name' => 'required|string',
+            'regency_id' => 'required|string',
+            'regency_name' => 'required|string',
+            'district_id' => 'required|string',
+            'district_name' => 'required|string',
+            'village_id' => 'required|string',
+            'village_name' => 'required|string',
+            'detail_address' => 'required|string',
         ]);
 
         $cart = session()->get('cart');
@@ -59,13 +65,21 @@ class CheckoutController extends Controller
         try {
             DB::beginTransaction();
 
-            // A. Simpan Data Order Utama
+            // A. Simpan Data Order Utama dengan Hierarchical Address
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'order_number' => 'ORD-' . strtoupper(uniqid()), // Contoh: ORD-65A1B2C
                 'recipient_name' => $request->recipient_name,
                 'phone_number' => $request->phone_number,
-                'address' => $request->address . ', ' . $request->city . ', ' . $request->postal_code,
+                'province_id' => $request->province_id,
+                'province_name' => $request->province_name,
+                'regency_id' => $request->regency_id,
+                'regency_name' => $request->regency_name,
+                'district_id' => $request->district_id,
+                'district_name' => $request->district_name,
+                'village_id' => $request->village_id,
+                'village_name' => $request->village_name,
+                'detail_address' => $request->detail_address,
                 'total_amount' => $totalAmount,
                 'status' => 'pending', // Status awal
                 'payment_status' => 'unpaid',

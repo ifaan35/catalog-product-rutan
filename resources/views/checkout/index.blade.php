@@ -24,29 +24,80 @@
                         <input type="text" name="phone_number" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;" placeholder="Contoh: 08123456789">
                     </div>
 
-                    {{-- Alamat Lengkap --}}
+                    {{-- Provinsi --}}
                     <div class="mb-4">
-                        <label class="block mb-2 font-medium" style="color: #07213C;">Alamat Lengkap</label>
-                        <textarea name="address" rows="3" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;" placeholder="Nama Jalan, No Rumah, Kelurahan, Kecamatan..."></textarea>
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Provinsi *</label>
+                        <div class="relative">
+                            <select name="province_id" id="province_id" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                                <option value="">-- Pilih Provinsi --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                        <div id="province_loading" class="text-xs mt-1" style="color: #6B7280; display: none;">Memuat...</div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block mb-2 font-medium" style="color: #07213C;">Kota</label>
-                            <input type="text" name="city" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;" placeholder="Contoh: Jakarta">
+                    {{-- Kabupaten/Kota --}}
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Kabupaten / Kota *</label>
+                        <div class="relative">
+                            <select name="regency_id" id="regency_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                                <option value="">-- Pilih Kabupaten/Kota --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block mb-2 font-medium" style="color: #07213C;">Kode Pos</label>
-                            <input type="text" name="postal_code" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;" placeholder="Contoh: 12345">
+                        <div id="regency_loading" class="text-xs mt-1" style="color: #6B7280; display: none;">Memuat...</div>
+                    </div>
+
+                    {{-- Kecamatan --}}
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Kecamatan *</label>
+                        <div class="relative">
+                            <select name="district_id" id="district_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                                <option value="">-- Pilih Kecamatan --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
                         </div>
+                        <div id="district_loading" class="text-xs mt-1" style="color: #6B7280; display: none;">Memuat...</div>
+                    </div>
+
+                    {{-- Kelurahan/Desa --}}
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Kelurahan / Desa *</label>
+                        <div class="relative">
+                            <select name="village_id" id="village_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                                <option value="">-- Pilih Kelurahan/Desa --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                        <div id="village_loading" class="text-xs mt-1" style="color: #6B7280; display: none;">Memuat...</div>
+                    </div>
+
+                    {{-- Alamat Detail --}}
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Detail Alamat (No. Rumah, Nama Jalan, etc.) *</label>
+                        <textarea name="detail_address" id="detail_address" rows="3" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; color: #07213C;" placeholder="Contoh: Jl. Merdeka No. 123, RT 05 RW 03"></textarea>
                     </div>
 
                     {{-- Catatan Tambahan --}}
-                    <div class="mt-4">
+                    <div class="mb-4">
                         <label class="block mb-2 font-medium" style="color: #07213C;">Catatan untuk Kurir (Opsional)</label>
-                        <textarea name="notes" rows="2" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; focus-ring-color: #ECBF62; color: #07213C;" placeholder="Contoh: Rumah cat biru, sebelah toko kelontong..."></textarea>
+                        <textarea name="notes" rows="2" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; color: #07213C;" placeholder="Contoh: Rumah cat biru, sebelah toko kelontong..."></textarea>
                     </div>
                 </div>
+
+                {{-- Hidden fields untuk nama yang dipilih --}}
+                <input type="hidden" name="province_name" id="province_name">
+                <input type="hidden" name="regency_name" id="regency_name">
+                <input type="hidden" name="district_name" id="district_name">
+                <input type="hidden" name="village_name" id="village_name">
 
                 {{-- KOLOM KANAN: Ringkasan Pesanan --}}
                 <div class="card p-6 rounded-lg h-fit">
@@ -102,4 +153,178 @@
             </div>
         </form>
     </div>
+
+    <script>
+        const API_BASE = 'https://emsifa.github.io/api-wilayah-indonesia/api';
+
+        // Load provinces on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProvinces();
+        });
+
+        // Load provinces
+        async function loadProvinces() {
+            try {
+                document.getElementById('province_loading').style.display = 'inline';
+                const response = await fetch(`${API_BASE}/provinces.json`);
+                const data = await response.json();
+                
+                const select = document.getElementById('province_id');
+                select.innerHTML = '<option value="">-- Pilih Provinsi --</option>';
+                
+                data.forEach(province => {
+                    const option = document.createElement('option');
+                    option.value = province.id;
+                    option.textContent = province.name;
+                    select.appendChild(option);
+                });
+                
+                document.getElementById('province_loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading provinces:', error);
+                alert('Gagal memuat data provinsi. Silakan refresh halaman.');
+            }
+        }
+
+        // On province change
+        document.getElementById('province_id').addEventListener('change', async (e) => {
+            const provinceId = e.target.value;
+            const provinceName = e.target.options[e.target.selectedIndex].text;
+            
+            // Reset dependent selects
+            document.getElementById('regency_id').innerHTML = '<option value="">-- Pilih Kabupaten/Kota --</option>';
+            document.getElementById('district_id').innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+            document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
+            
+            if (!provinceId) {
+                document.getElementById('regency_id').disabled = true;
+                document.getElementById('district_id').disabled = true;
+                document.getElementById('village_id').disabled = true;
+                document.getElementById('province_name').value = '';
+                return;
+            }
+
+            document.getElementById('province_name').value = provinceName;
+            await loadRegencies(provinceId);
+        });
+
+        // Load regencies
+        async function loadRegencies(provinceId) {
+            try {
+                document.getElementById('regency_loading').style.display = 'inline';
+                const response = await fetch(`${API_BASE}/regencies/${provinceId}.json`);
+                const data = await response.json();
+                
+                const select = document.getElementById('regency_id');
+                select.innerHTML = '<option value="">-- Pilih Kabupaten/Kota --</option>';
+                select.disabled = false;
+                
+                data.forEach(regency => {
+                    const option = document.createElement('option');
+                    option.value = regency.id;
+                    option.textContent = regency.name;
+                    select.appendChild(option);
+                });
+                
+                document.getElementById('regency_loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading regencies:', error);
+                alert('Gagal memuat data kabupaten/kota.');
+            }
+        }
+
+        // On regency change
+        document.getElementById('regency_id').addEventListener('change', async (e) => {
+            const regencyId = e.target.value;
+            const regencyName = e.target.options[e.target.selectedIndex].text;
+            
+            // Reset dependent selects
+            document.getElementById('district_id').innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+            document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
+            
+            if (!regencyId) {
+                document.getElementById('district_id').disabled = true;
+                document.getElementById('village_id').disabled = true;
+                document.getElementById('regency_name').value = '';
+                return;
+            }
+
+            document.getElementById('regency_name').value = regencyName;
+            await loadDistricts(regencyId);
+        });
+
+        // Load districts
+        async function loadDistricts(regencyId) {
+            try {
+                document.getElementById('district_loading').style.display = 'inline';
+                const response = await fetch(`${API_BASE}/districts/${regencyId}.json`);
+                const data = await response.json();
+                
+                const select = document.getElementById('district_id');
+                select.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+                select.disabled = false;
+                
+                data.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.textContent = district.name;
+                    select.appendChild(option);
+                });
+                
+                document.getElementById('district_loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading districts:', error);
+                alert('Gagal memuat data kecamatan.');
+            }
+        }
+
+        // On district change
+        document.getElementById('district_id').addEventListener('change', async (e) => {
+            const districtId = e.target.value;
+            const districtName = e.target.options[e.target.selectedIndex].text;
+            
+            // Reset village select
+            document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
+            
+            if (!districtId) {
+                document.getElementById('village_id').disabled = true;
+                document.getElementById('district_name').value = '';
+                return;
+            }
+
+            document.getElementById('district_name').value = districtName;
+            await loadVillages(districtId);
+        });
+
+        // Load villages
+        async function loadVillages(districtId) {
+            try {
+                document.getElementById('village_loading').style.display = 'inline';
+                const response = await fetch(`${API_BASE}/villages/${districtId}.json`);
+                const data = await response.json();
+                
+                const select = document.getElementById('village_id');
+                select.innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
+                select.disabled = false;
+                
+                data.forEach(village => {
+                    const option = document.createElement('option');
+                    option.value = village.id;
+                    option.textContent = village.name;
+                    select.appendChild(option);
+                });
+                
+                document.getElementById('village_loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading villages:', error);
+                alert('Gagal memuat data kelurahan/desa.');
+            }
+        }
+
+        // On village change
+        document.getElementById('village_id').addEventListener('change', (e) => {
+            const villageName = e.target.options[e.target.selectedIndex].text;
+            document.getElementById('village_name').value = villageName;
+        });
+    </script>
 </x-app-layout>

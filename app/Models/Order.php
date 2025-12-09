@@ -25,6 +25,16 @@ class Order extends Model
         'phone',
         'notes',
         'payment_method',
+        // Hierarchical address fields
+        'province_id',
+        'province_name',
+        'regency_id',
+        'regency_name',
+        'district_id',
+        'district_name',
+        'village_id',
+        'village_name',
+        'detail_address',
     ];
 
     protected $casts = [

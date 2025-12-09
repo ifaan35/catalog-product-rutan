@@ -68,7 +68,9 @@
                                 <strong>Dikirim ke:</strong> {{ $order->recipient_name }} - {{ $order->phone_number }}
                             </p>
                             <p class="text-sm mb-4" style="color: #6B7280;">
-                                {{ $order->address }}
+                                {{ $order->detail_address }}<br>
+                                {{ $order->village_name }}, {{ $order->district_name }}<br>
+                                {{ $order->regency_name }}, {{ $order->province_name }}
                             </p>
 
                             <!-- Items Preview -->

@@ -49,7 +49,11 @@
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-sm font-semibold mb-1" style="color: #6B7280;">Alamat Pengiriman</p>
-                        <p style="color: #07213C;">{{ $order->address }}</p>
+                        <p style="color: #07213C;">
+                            {{ $order->detail_address }}<br>
+                            {{ $order->village_name }}, {{ $order->district_name }}<br>
+                            {{ $order->regency_name }}, {{ $order->province_name }}
+                        </p>
                     </div>
                     @if($order->notes)
                         <div class="md:col-span-2">

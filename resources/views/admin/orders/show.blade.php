@@ -159,7 +159,11 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap</label>
-                            <p class="text-gray-900 font-medium leading-relaxed bg-gray-50 p-3 rounded">{{ $order->address }}</p>
+                            <p class="text-gray-900 font-medium leading-relaxed bg-gray-50 p-3 rounded">
+                                {{ $order->detail_address }}<br>
+                                <span class="text-sm">{{ $order->village_name }}, {{ $order->district_name }}</span><br>
+                                <span class="text-sm">{{ $order->regency_name }}, {{ $order->province_name }}</span>
+                            </p>
                         </div>
                         
                         <div class="pt-2 border-t border-gray-100 space-y-2">

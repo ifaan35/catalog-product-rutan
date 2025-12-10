@@ -4,6 +4,25 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8" style="background-color: #F5F6F8;">
         <h1 class="text-3xl font-bold mb-8" style="color: #07213C;">Checkout & Pengiriman</h1>
 
+        {{-- Error Messages Display --}}
+        @if ($errors->any())
+            <div class="mb-6 p-4 rounded-lg border-l-4 border-red-500" style="background-color: #FEE2E2; color: #991B1B;">
+                <div class="flex items-start">
+                    <svg class="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <div>
+                        <h3 class="font-bold mb-2">Validasi Gagal!</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <form action="{{ route('checkout.store') }}" method="POST">
             @csrf
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -93,12 +112,6 @@
                     </div>
                 </div>
 
-                {{-- Hidden fields untuk nama yang dipilih --}}
-                <input type="hidden" name="province_name" id="province_name">
-                <input type="hidden" name="regency_name" id="regency_name">
-                <input type="hidden" name="district_name" id="district_name">
-                <input type="hidden" name="village_name" id="village_name">
-
                 {{-- KOLOM KANAN: Ringkasan Pesanan --}}
                 <div class="card p-6 rounded-lg h-fit">
                     <h2 class="text-xl font-bold border-b pb-3 mb-4" style="color: #07213C; border-color: #E1E2E4;">Ringkasan Pesanan</h2>
@@ -143,6 +156,12 @@
 
                         {{-- Input Hidden untuk Total --}}
                         <input type="hidden" name="total_amount" value="{{ $total }}">
+
+                        {{-- Hidden fields untuk nama yang dipilih --}}
+                        <input type="hidden" name="province_name" id="province_name">
+                        <input type="hidden" name="regency_name" id="regency_name">
+                        <input type="hidden" name="district_name" id="district_name">
+                        <input type="hidden" name="village_name" id="village_name">
 
                         <button type="submit" class="w-full font-bold py-3 rounded-lg transition duration-300 hover:opacity-90 shadow-lg" style="background-color: #ECBF62; color: #07213C;">
                             🔒 KONFIRMASI PEMBAYARAN

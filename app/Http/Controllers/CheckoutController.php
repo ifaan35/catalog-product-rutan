@@ -34,19 +34,28 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         // 1. Validasi Input
-        $request->validate([
-            'recipient_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'province_id' => 'required|string',
-            'province_name' => 'required|string',
-            'regency_id' => 'required|string',
-            'regency_name' => 'required|string',
-            'district_id' => 'required|string',
-            'district_name' => 'required|string',
-            'village_id' => 'required|string',
-            'village_name' => 'required|string',
-            'detail_address' => 'required|string',
-        ]);
+        try {
+            $validated = $request->validate([
+                'recipient_name' => 'required|string|max:255',
+                'phone_number' => 'required|string|max:20',
+                'province_id' => 'required|string',
+                'province_name' => 'required|string',
+                'regency_id' => 'required|string',
+                'regency_name' => 'required|string',
+                'district_id' => 'required|string',
+                'district_name' => 'required|string',
+                'village_id' => 'required|string',
+                'village_name' => 'required|string',
+                'detail_address' => 'required|string',
+                'notes' => 'nullable|string', // Notes bersifat optional
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Checkout validation failed:', [
+                'errors' => $e->errors(),
+                'request_data' => $request->except(['password']),
+            ]);
+            throw $e;
+        }
 
         $cart = session()->get('cart');
         
@@ -66,11 +75,15 @@ class CheckoutController extends Controller
             DB::beginTransaction();
 
             // A. Simpan Data Order Utama dengan Hierarchical Address
-            $order = Order::create([
+            // Format address sebagai kombinasi hierarchical untuk backward compatibility
+            $address = "{$request->detail_address}, {$request->village_name}, {$request->district_name}, {$request->regency_name}, {$request->province_name}";
+            
+            $orderData = [
                 'user_id' => Auth::id(),
                 'order_number' => 'ORD-' . strtoupper(uniqid()), // Contoh: ORD-65A1B2C
                 'recipient_name' => $request->recipient_name,
                 'phone_number' => $request->phone_number,
+                'address' => $address, // Field lama untuk backward compatibility
                 'province_id' => $request->province_id,
                 'province_name' => $request->province_name,
                 'regency_id' => $request->regency_id,
@@ -83,8 +96,18 @@ class CheckoutController extends Controller
                 'total_amount' => $totalAmount,
                 'status' => 'pending', // Status awal
                 'payment_status' => 'unpaid',
-                'notes' => $request->notes,
-            ]);
+            ];
+            
+            // Tambahkan notes hanya jika ada
+            if ($request->filled('notes')) {
+                $orderData['notes'] = $request->notes;
+            }
+            
+            \Log::info('Creating order with data:', $orderData);
+            
+            $order = Order::create($orderData);
+            
+            \Log::info('Order created successfully:', ['order_id' => $order->id, 'order_number' => $order->order_number]);
 
             // B. Simpan Item Order & Kurangi Stok
             foreach($cart as $cartKey => $item) {
@@ -115,6 +138,12 @@ class CheckoutController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan semua perubahan jika ada error
+            \Log::error('Checkout process failed:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
         }
     }

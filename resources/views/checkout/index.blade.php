@@ -163,7 +163,7 @@
                         <input type="hidden" name="district_name" id="district_name">
                         <input type="hidden" name="village_name" id="village_name">
 
-                        <button type="submit" class="w-full font-bold py-3 rounded-lg transition duration-300 hover:opacity-90 shadow-lg" style="background-color: #ECBF62; color: #07213C;">
+                        <button type="submit" id="submit-btn" class="w-full font-bold py-3 rounded-lg transition duration-300 hover:opacity-90 shadow-lg" style="background-color: #ECBF62; color: #07213C;">
                             🔒 KONFIRMASI PEMBAYARAN
                         </button>
                         <p class="text-xs text-center mt-2" style="color: #6B7280;">Data Anda diamankan dengan enkripsi SSL.</p>
@@ -250,6 +250,7 @@
             }
 
             document.getElementById('province_name').value = provinceName;
+            console.log('✓ Province selected:', { id: provinceId, name: provinceName });
             document.getElementById('regency_id').removeAttribute('data-disabled');
             document.getElementById('regency_id').style.opacity = '1';
             await loadRegencies(provinceId);
@@ -311,6 +312,7 @@
             }
 
             document.getElementById('regency_name').value = regencyName;
+            console.log('✓ Regency selected:', { id: regencyId, name: regencyName });
             document.getElementById('district_id').removeAttribute('data-disabled');
             document.getElementById('district_id').style.opacity = '1';
             await loadDistricts(regencyId);
@@ -369,6 +371,7 @@
             }
 
             document.getElementById('district_name').value = districtName;
+            console.log('✓ District selected:', { id: districtId, name: districtName });
             document.getElementById('village_id').removeAttribute('data-disabled');
             document.getElementById('village_id').style.opacity = '1';
             await loadVillages(districtId);
@@ -415,6 +418,92 @@
         document.getElementById('village_id').addEventListener('change', (e) => {
             const villageName = e.target.options[e.target.selectedIndex].text;
             document.getElementById('village_name').value = villageName;
+            console.log('✓ Village selected:', { id: e.target.value, name: villageName });
+        });
+
+        // Button click handler for debugging
+        const submitBtn = document.getElementById('submit-btn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                console.log('%c[BUTTON CLICK]', 'color: orange; font-weight: bold; font-size: 12px;', 'Konfirmasi Pembayaran button clicked');
+                console.log('Button element:', this);
+                console.log('Event object:', e);
+            });
+        }
+
+        // Form submission handler with comprehensive debugging
+        const form = document.querySelector('form');
+        
+        form.addEventListener('submit', function(e) {
+            console.log('%c=== CHECKOUT FORM SUBMISSION START ===', 'color: blue; font-weight: bold; font-size: 14px;');
+            console.log('%cForm Element:', 'color: green; font-weight: bold;', form);
+            console.log('%cForm Action:', 'color: green; font-weight: bold;', this.action);
+            console.log('%cForm Method:', 'color: green; font-weight: bold;', this.method);
+            
+            // Extract all required fields
+            const formData = new FormData(form);
+            
+            console.log('%cAll Form Fields:', 'color: purple; font-weight: bold;');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}: "${value}"`);
+            }
+            
+            // Get individual field values for validation
+            const recipient_name = form.querySelector('input[name="recipient_name"]').value.trim();
+            const phone_number = form.querySelector('input[name="phone_number"]').value.trim();
+            const province_id = form.querySelector('select[name="province_id"]').value.trim();
+            const regency_id = form.querySelector('select[name="regency_id"]').value.trim();
+            const district_id = form.querySelector('select[name="district_id"]').value.trim();
+            const village_id = form.querySelector('select[name="village_id"]').value.trim();
+            const detail_address = form.querySelector('textarea[name="detail_address"]').value.trim();
+            const province_name = form.querySelector('input[name="province_name"]').value.trim();
+            const regency_name = form.querySelector('input[name="regency_name"]').value.trim();
+            const district_name = form.querySelector('input[name="district_name"]').value.trim();
+            const village_name = form.querySelector('input[name="village_name"]').value.trim();
+
+            console.log('%cExtracted Form Data:', 'color: orange; font-weight: bold;', {
+                recipient_name: { value: recipient_name, length: recipient_name.length },
+                phone_number: { value: phone_number, length: phone_number.length },
+                province_id: { value: province_id, length: province_id.length },
+                province_name: { value: province_name, length: province_name.length },
+                regency_id: { value: regency_id, length: regency_id.length },
+                regency_name: { value: regency_name, length: regency_name.length },
+                district_id: { value: district_id, length: district_id.length },
+                district_name: { value: district_name, length: district_name.length },
+                village_id: { value: village_id, length: village_id.length },
+                village_name: { value: village_name, length: village_name.length },
+                detail_address: { value: detail_address, length: detail_address.length }
+            });
+
+            // Perform validation
+            let errors = [];
+            if (!recipient_name) errors.push('❌ Nama Penerima harus diisi');
+            if (!phone_number) errors.push('❌ Nomor Telepon harus diisi');
+            if (!province_id) errors.push('❌ Provinsi harus dipilih');
+            if (!province_name) errors.push('❌ Nama Provinsi tidak tersimpan (silahkan pilih ulang Provinsi)');
+            if (!regency_id) errors.push('❌ Kabupaten/Kota harus dipilih');
+            if (!regency_name) errors.push('❌ Nama Kabupaten/Kota tidak tersimpan (silahkan pilih ulang)');
+            if (!district_id) errors.push('❌ Kecamatan harus dipilih');
+            if (!district_name) errors.push('❌ Nama Kecamatan tidak tersimpan (silahkan pilih ulang)');
+            if (!village_id) errors.push('❌ Kelurahan/Desa harus dipilih');
+            if (!village_name) errors.push('❌ Nama Kelurahan/Desa tidak tersimpan (silahkan pilih ulang)');
+            if (!detail_address) errors.push('❌ Detail Alamat harus diisi');
+
+            console.log('%cValidation Result:', 'color: darkred; font-weight: bold;', `${errors.length === 0 ? '✓ PASSED' : '✗ FAILED'}`);
+
+            if (errors.length > 0) {
+                e.preventDefault();
+                console.error('%cVALIDATION ERRORS:', 'color: red; font-weight: bold; font-size: 12px;', errors);
+                const errorMsg = 'Validasi Form Gagal!\n\n' + errors.join('\n');
+                console.error(errorMsg);
+                alert(errorMsg);
+                return false;
+            }
+
+            console.log('%c✓ ALL VALIDATION PASSED - FORM WILL SUBMIT', 'color: green; font-weight: bold; font-size: 14px;');
+            console.log('%cSubmitting to:', 'color: green; font-weight: bold;', this.action);
+            console.log('%c=== FORM SUBMISSION PROCEEDING ===', 'color: blue; font-weight: bold; font-size: 14px;');
+            // Form will submit normally here
         });
     </script>
 </x-app-layout>

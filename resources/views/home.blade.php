@@ -134,8 +134,13 @@
                                 <a href="{{ route('product.show', $product->id) }}" class="block bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-4 hover:shadow-3xl h-full border border-gray-100">
                                     <!-- Product Image -->
                                     <div class="relative overflow-hidden h-64" style="background: linear-gradient(135deg, #E1E2E4 0%, #d9dadc 100%);">
-                                        @if($product->image)
-                                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                        @if($product->hasImage())
+                                            <img 
+                                                src="{{ $product->getImageUrl() }}" 
+                                                alt="{{ $product->name }}" 
+                                                class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                                loading="lazy"
+                                                onerror="this.src='{{ asset('images/placeholder.png') }}'; this.classList.add('opacity-50')">
                                         @else
                                             <div class="flex items-center justify-center h-full text-5xl">📦</div>
                                         @endif

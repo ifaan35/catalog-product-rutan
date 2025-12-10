@@ -15,13 +15,19 @@
             
             {{-- KOLOM KIRI: GALERI GAMBAR --}}
             <div class="relative">
-                @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
-                @elseif($product->image_url)
-                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg mb-4 object-cover h-96">
+                @if($product->hasImage())
+                    <img 
+                        src="{{ $product->getImageUrl() }}" 
+                        alt="{{ $product->name }}" 
+                        class="w-full rounded-lg shadow-lg mb-4 object-cover h-96"
+                        loading="lazy"
+                        onerror="this.src='{{ asset('images/placeholder.png') }}'; this.classList.add('opacity-50')">
                 @else
-                    <div class="w-full h-96 rounded-lg flex items-center justify-center mb-4" style="background-color: #E1E2E4;">
-                        <span style="color: #6B7280;">{{ $product->name }}</span>
+                    <div class="w-full h-96 rounded-lg flex flex-col items-center justify-center mb-4" style="background-color: #E1E2E4;">
+                        <svg class="w-20 h-20 mb-2" style="color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span style="color: #6B7280;">Tidak ada gambar untuk produk ini</span>
                     </div>
                 @endif
                 
@@ -98,10 +104,15 @@
                         class="block card rounded-lg transition duration-300 overflow-hidden
                                {{ $relatedSoldOut ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl' }}">
                          <div class="h-48 flex items-center justify-center overflow-hidden relative" style="background-color: #E1E2E4;">
-                            @if($related->image)
-                                <img src="{{ asset($related->image) }}" alt="{{ $related->name }}" class="w-full h-full object-cover">
+                            @if($related->hasImage())
+                                <img src="{{ $related->getImageUrl() }}" alt="{{ $related->name }}" class="w-full h-full object-cover" onerror="this.src='{{ asset('images/placeholder.png') }}'; this.classList.add('opacity-50')">
                             @else
-                                <span style="color: #6B7280;">{{ $related->name }}</span>
+                                <div class="w-full h-full flex flex-col items-center justify-center" style="background-color: #E1E2E4;">
+                                    <svg class="w-16 h-16 mb-2" style="color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span style="color: #6B7280; font-size: 0.875rem;">Tidak ada gambar</span>
+                                </div>
                             @endif
                             
                             @if($relatedSoldOut)

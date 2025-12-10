@@ -57,46 +57,54 @@
             @forelse ($products as $product)
                 @php $isSoldOut = $product->stock <= 0; @endphp
                 
-                {{-- Product Card dengan kondisi sold out --}}
-                <{{ $isSoldOut ? 'div' : 'a' }} 
-                    @if(!$isSoldOut) href="{{ route('product.show', $product->id) }}" @endif
-                    class="block card rounded-lg transition duration-300 overflow-hidden
-                           {{ $isSoldOut ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl' }}">
-                    <div class="h-48 flex items-center justify-center overflow-hidden relative" style="background-color: #E1E2E4;">
-                        @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
-                        @elseif($product->image_url)
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
-                        @else
-                            <span style="color: #6B7280;">{{ $product->name }}</span>
-                        @endif
-                        
-                        @if($isSoldOut)
-                            <div class="absolute inset-0 bg-opacity-75 flex items-center justify-center" style="background-color: rgba(239, 68, 68, 0.75);">
-                                <span class="text-white text-lg font-black rotate-45 border-4 border-white px-3 py-1">SOLD OUT</span>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold truncate" style="color: #07213C;">{{ $product->name }}</h3>
-                        <p class="text-sm mt-1" style="color: #ECBF62;">
-                            @if($product->category)
-                                {{ $product->category->name }}
+                    {{-- Product Card dengan kondisi sold out --}}
+                    <{{ $isSoldOut ? 'div' : 'a' }} 
+                        @if(!$isSoldOut) href="{{ route('product.show', $product->id) }}" @endif
+                        class="block card rounded-lg transition duration-300 overflow-hidden
+                               {{ $isSoldOut ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl' }}">
+                        <div class="h-48 flex items-center justify-center overflow-hidden relative" style="background-color: #E1E2E4;">
+                            @if($product->hasImage())
+                                <img 
+                                    src="{{ $product->getImageUrl() }}" 
+                                    alt="{{ $product->name }}" 
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                    onerror="this.src='{{ asset('images/placeholder.png') }}'; this.classList.add('opacity-50')">
                             @else
-                                Tidak berkategori
+                                <div class="w-full h-full flex flex-col items-center justify-center" style="background-color: #E1E2E4;">
+                                    <svg class="w-16 h-16 mb-2" style="color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span style="color: #6B7280; font-size: 0.875rem;">Tidak ada gambar</span>
+                                </div>
                             @endif
-                        </p>
-                        <p class="text-sm mt-1" style="color: #6B7280;">Stok: 
-                            <span class="font-bold" style="color: {{ $isSoldOut ? '#EF4444' : '#10B981' }};">
-                                {{ $isSoldOut ? 'HABIS' : $product->stock }}
-                            </span>
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <span class="text-xl font-bold" style="color: #07213C;">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
-                            @if($product->original_price)
-                                <span class="text-sm line-through ml-2" style="color: #9CA3AF;">Rp {{ number_format($product->original_price, 0, ',', '.') }}</span>
+                            
+                            @if($isSoldOut)
+                                <div class="absolute inset-0 bg-opacity-75 flex items-center justify-center" style="background-color: rgba(239, 68, 68, 0.75);">
+                                    <span class="text-white text-lg font-black rotate-45 border-4 border-white px-3 py-1">SOLD OUT</span>
+                                </div>
                             @endif
                         </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold truncate" style="color: #07213C;">{{ $product->name }}</h3>
+                            <p class="text-sm mt-1" style="color: #ECBF62;">
+                                @if($product->category)
+                                    {{ $product->category->name }}
+                                @else
+                                    Tidak berkategori
+                                @endif
+                            </p>
+                            <p class="text-sm mt-1" style="color: #6B7280;">Stok: 
+                                <span class="font-bold" style="color: {{ $isSoldOut ? '#EF4444' : '#10B981' }};">
+                                    {{ $isSoldOut ? 'HABIS' : $product->stock }}
+                                </span>
+                            </p>
+                            <div class="flex items-center mt-2">
+                                <span class="text-xl font-bold" style="color: #07213C;">Rp {{ number_format($product->price, 0, ',', '.') }}</span>
+                                @if($product->original_price)
+                                    <span class="text-sm line-through ml-2" style="color: #9CA3AF;">Rp {{ number_format($product->original_price, 0, ',', '.') }}</span>
+                                @endif
+                            </div>
                         @if($product->is_trending && !$isSoldOut)
                             <span class="inline-block text-xs px-2 py-1 rounded-full mt-2" style="background-color: rgba(236, 191, 98, 0.2); color: #ECBF62;">🔥 Trending</span>
                         @elseif($isSoldOut)

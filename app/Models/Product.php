@@ -45,4 +45,47 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Get the product image URL with fallback
+     */
+    public function getImageUrl()
+    {
+        // Prioritas 1: Jika ada image (local file), gunakan itu
+        if (!empty($this->image)) {
+            // Format: "products/filename.jpg" atau "images/products/filename.jpg"
+            $imagePath = $this->image;
+            
+            // Jika path belum include 'images/', tambahkan
+            if (strpos($imagePath, 'images/') === false) {
+                $imagePath = 'images/' . $imagePath;
+            }
+            
+            return asset($imagePath);
+        }
+
+        // Prioritas 2: Jika ada image_url (external URL), gunakan itu
+        if (!empty($this->image_url)) {
+            return $this->image_url;
+        }
+
+        // Prioritas 3: Return placeholder jika tidak ada gambar
+        return asset('images/placeholder.png');
+    }
+
+    /**
+     * Check if product has valid image
+     */
+    public function hasImage()
+    {
+        if (!empty($this->image_url)) {
+            return true;
+        }
+
+        if (!empty($this->image)) {
+            return true;
+        }
+
+        return false;
+    }
 }

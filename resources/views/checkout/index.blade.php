@@ -61,7 +61,7 @@
                     <div class="mb-4">
                         <label class="block mb-2 font-medium" style="color: #07213C;">Kabupaten / Kota *</label>
                         <div class="relative">
-                            <select name="regency_id" id="regency_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                            <select name="regency_id" id="regency_id" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;" data-disabled="true">
                                 <option value="">-- Pilih Kabupaten/Kota --</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
@@ -75,7 +75,7 @@
                     <div class="mb-4">
                         <label class="block mb-2 font-medium" style="color: #07213C;">Kecamatan *</label>
                         <div class="relative">
-                            <select name="district_id" id="district_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                            <select name="district_id" id="district_id" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;" data-disabled="true">
                                 <option value="">-- Pilih Kecamatan --</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
@@ -89,7 +89,7 @@
                     <div class="mb-4">
                         <label class="block mb-2 font-medium" style="color: #07213C;">Kelurahan / Desa *</label>
                         <div class="relative">
-                            <select name="village_id" id="village_id" required disabled class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;">
+                            <select name="village_id" id="village_id" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 appearance-none" style="border-color: #E1E2E4; color: #07213C;" data-disabled="true">
                                 <option value="">-- Pilih Kelurahan/Desa --</option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2" style="color: #07213C;">
@@ -239,14 +239,19 @@
             document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
             
             if (!provinceId) {
-                document.getElementById('regency_id').disabled = true;
-                document.getElementById('district_id').disabled = true;
-                document.getElementById('village_id').disabled = true;
+                document.getElementById('regency_id').setAttribute('data-disabled', 'true');
+                document.getElementById('regency_id').style.opacity = '0.5';
+                document.getElementById('district_id').setAttribute('data-disabled', 'true');
+                document.getElementById('district_id').style.opacity = '0.5';
+                document.getElementById('village_id').setAttribute('data-disabled', 'true');
+                document.getElementById('village_id').style.opacity = '0.5';
                 document.getElementById('province_name').value = '';
                 return;
             }
 
             document.getElementById('province_name').value = provinceName;
+            document.getElementById('regency_id').removeAttribute('data-disabled');
+            document.getElementById('regency_id').style.opacity = '1';
             await loadRegencies(provinceId);
         });
 
@@ -270,7 +275,8 @@
                 
                 const select = document.getElementById('regency_id');
                 select.innerHTML = '<option value="">-- Pilih Kabupaten/Kota --</option>';
-                select.disabled = false;
+                select.removeAttribute('data-disabled');
+                select.style.opacity = '1';
                 
                 data.forEach(regency => {
                     const option = document.createElement('option');
@@ -296,13 +302,17 @@
             document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
             
             if (!regencyId) {
-                document.getElementById('district_id').disabled = true;
-                document.getElementById('village_id').disabled = true;
+                document.getElementById('district_id').setAttribute('data-disabled', 'true');
+                document.getElementById('district_id').style.opacity = '0.5';
+                document.getElementById('village_id').setAttribute('data-disabled', 'true');
+                document.getElementById('village_id').style.opacity = '0.5';
                 document.getElementById('regency_name').value = '';
                 return;
             }
 
             document.getElementById('regency_name').value = regencyName;
+            document.getElementById('district_id').removeAttribute('data-disabled');
+            document.getElementById('district_id').style.opacity = '1';
             await loadDistricts(regencyId);
         });
 
@@ -326,7 +336,8 @@
                 
                 const select = document.getElementById('district_id');
                 select.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
-                select.disabled = false;
+                select.removeAttribute('data-disabled');
+                select.style.opacity = '1';
                 
                 data.forEach(district => {
                     const option = document.createElement('option');
@@ -351,12 +362,15 @@
             document.getElementById('village_id').innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
             
             if (!districtId) {
-                document.getElementById('village_id').disabled = true;
+                document.getElementById('village_id').setAttribute('data-disabled', 'true');
+                document.getElementById('village_id').style.opacity = '0.5';
                 document.getElementById('district_name').value = '';
                 return;
             }
 
             document.getElementById('district_name').value = districtName;
+            document.getElementById('village_id').removeAttribute('data-disabled');
+            document.getElementById('village_id').style.opacity = '1';
             await loadVillages(districtId);
         });
 
@@ -380,7 +394,8 @@
                 
                 const select = document.getElementById('village_id');
                 select.innerHTML = '<option value="">-- Pilih Kelurahan/Desa --</option>';
-                select.disabled = false;
+                select.removeAttribute('data-disabled');
+                select.style.opacity = '1';
                 
                 data.forEach(village => {
                     const option = document.createElement('option');

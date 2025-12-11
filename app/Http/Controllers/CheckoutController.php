@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -47,10 +48,11 @@ class CheckoutController extends Controller
                 'village_id' => 'required|string',
                 'village_name' => 'required|string',
                 'detail_address' => 'required|string',
+                'postal_code' => 'required|string|max:10',
                 'notes' => 'nullable|string', // Notes bersifat optional
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            \Log::error('Checkout validation failed:', [
+            Log::error('Checkout validation failed:', [
                 'errors' => $e->errors(),
                 'request_data' => $request->except(['password']),
             ]);
@@ -76,7 +78,7 @@ class CheckoutController extends Controller
 
             // A. Simpan Data Order Utama dengan Hierarchical Address
             // Format address sebagai kombinasi hierarchical untuk backward compatibility
-            $address = "{$request->detail_address}, {$request->village_name}, {$request->district_name}, {$request->regency_name}, {$request->province_name}";
+            $address = "{$request->detail_address}, {$request->village_name}, {$request->district_name}, {$request->regency_name}, {$request->province_name} {$request->postal_code}";
             
             $orderData = [
                 'user_id' => Auth::id(),
@@ -93,6 +95,7 @@ class CheckoutController extends Controller
                 'village_id' => $request->village_id,
                 'village_name' => $request->village_name,
                 'detail_address' => $request->detail_address,
+                'postal_code' => $request->postal_code,
                 'total_amount' => $totalAmount,
                 'status' => 'pending', // Status awal
                 'payment_status' => 'unpaid',
@@ -103,11 +106,11 @@ class CheckoutController extends Controller
                 $orderData['notes'] = $request->notes;
             }
             
-            \Log::info('Creating order with data:', $orderData);
+            Log::info('Creating order with data:', $orderData);
             
             $order = Order::create($orderData);
             
-            \Log::info('Order created successfully:', ['order_id' => $order->id, 'order_number' => $order->order_number]);
+            Log::info('Order created successfully:', ['order_id' => $order->id, 'order_number' => $order->order_number]);
 
             // B. Simpan Item Order & Kurangi Stok
             foreach($cart as $cartKey => $item) {
@@ -138,7 +141,7 @@ class CheckoutController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan semua perubahan jika ada error
-            \Log::error('Checkout process failed:', [
+            Log::error('Checkout process failed:', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),

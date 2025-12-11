@@ -105,6 +105,12 @@
                         <textarea name="detail_address" id="detail_address" rows="3" required class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; color: #07213C;" placeholder="Contoh: Jl. Merdeka No. 123, RT 05 RW 03"></textarea>
                     </div>
 
+                    {{-- Kode Pos --}}
+                    <div class="mb-4">
+                        <label class="block mb-2 font-medium" style="color: #07213C;">Kode Pos *</label>
+                        <input type="text" name="postal_code" id="postal_code" required maxlength="10" class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2" style="border-color: #E1E2E4; color: #07213C;" placeholder="Contoh: 12345">
+                    </div>
+
                     {{-- Catatan Tambahan --}}
                     <div class="mb-4">
                         <label class="block mb-2 font-medium" style="color: #07213C;">Catatan untuk Kurir (Opsional)</label>

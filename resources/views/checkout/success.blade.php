@@ -52,7 +52,7 @@
                         <p style="color: #07213C;">
                             {{ $order->detail_address }}<br>
                             {{ $order->village_name }}, {{ $order->district_name }}<br>
-                            {{ $order->regency_name }}, {{ $order->province_name }}
+                            {{ $order->regency_name }}, {{ $order->province_name }} {{ $order->postal_code }}
                         </p>
                     </div>
                     @if($order->notes)

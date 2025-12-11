@@ -35,6 +35,7 @@ class Order extends Model
         'village_id',
         'village_name',
         'detail_address',
+        'postal_code',
     ];
 
     protected $casts = [

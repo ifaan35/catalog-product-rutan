@@ -162,7 +162,7 @@
                             <p class="text-gray-900 font-medium leading-relaxed bg-gray-50 p-3 rounded">
                                 {{ $order->detail_address }}<br>
                                 <span class="text-sm">{{ $order->village_name }}, {{ $order->district_name }}</span><br>
-                                <span class="text-sm">{{ $order->regency_name }}, {{ $order->province_name }}</span>
+                                <span class="text-sm">{{ $order->regency_name }}, {{ $order->province_name }} {{ $order->postal_code }}</span>
                             </p>
                         </div>
                         

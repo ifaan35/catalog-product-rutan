@@ -222,11 +222,12 @@
                         </p>
                     </div>
 
-                    <div class="flex justify-center items-center gap-32 flex-wrap max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                         @foreach([
                             ['name' => 'peternakan', 'emoji' => '🐄'],
                             ['name' => 'perikanan', 'emoji' => '🐟'],
-                            ['name' => 'pertanian', 'emoji' => '🌾']
+                            ['name' => 'pertanian', 'emoji' => '🌾'],
+                            ['name' => 'makanan olahan', 'emoji' => '🍲']
                         ] as $cat)
                             <div class="group cursor-pointer text-center transform transition-all duration-300 hover:scale-110">
                                 <!-- Circular Badge -->

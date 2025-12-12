@@ -2,10 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
-            <div class="shrink-0 flex items-center">
+            <div class="shrink-0 flex items-center gap-4">
                 <a href="{{ route('home') }}" class="transition duration-300 hover:opacity-80">
-                    <img src="{{ asset('images/logo/FA_Logo_Kementrian_Imigrasi_dan_Pemasyarakatan.png') }}" alt="RUTAN Logo" class="h-16 w-auto">
-                </a>
+                    <img src="{{ asset('images/logo/LOGO Gabungan.png') }}" alt="RUTAN Logo" class="h-16 w-auto">
+                </a>                
             </div>
 
             <!-- Desktop Navigation Links -->

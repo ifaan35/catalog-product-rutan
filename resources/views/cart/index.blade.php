@@ -31,8 +31,8 @@
                                         <tr class="hover:bg-gray-50">
                                             <td class="px-6 py-4">
                                                 <div class="flex items-center">
-                                                    @if($item['image'])
-                                                        <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded mr-4">
+                                                    @if($item['image_url'] ?? $item['image'])
+                                                        <img src="{{ $item['image_url'] ?? asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded mr-4">
                                                     @endif
                                                     <span style="color: #07213C;">{{ $item['name'] }}</span>
                                                 </div>

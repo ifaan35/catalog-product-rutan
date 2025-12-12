@@ -53,10 +53,14 @@ class Product extends Model
     {
         // Prioritas 1: Jika ada image (local file), gunakan itu
         if (!empty($this->image)) {
-            // Format: "products/filename.jpg" atau "images/products/filename.jpg"
             $imagePath = $this->image;
             
-            // Jika path belum include 'images/', tambahkan
+            // Handle 'storage/products/filename.jpg' format (newer uploads)
+            if (strpos($imagePath, 'storage/') === 0) {
+                return asset($imagePath);
+            }
+            
+            // Handle 'products/filename.jpg' format (legacy uploads)
             if (strpos($imagePath, 'images/') === false) {
                 $imagePath = 'images/' . $imagePath;
             }

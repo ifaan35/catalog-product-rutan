@@ -32,7 +32,7 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($product->image)
-                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="h-10 w-10 object-cover rounded-full">
+                                    <img src="{{ $product->getImageUrl() }}" alt="{{ $product->name }}" class="h-10 w-10 object-cover rounded-full">
                                 @else
                                     <div class="h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
                                         <span class="text-xs text-gray-500">No Img</span>

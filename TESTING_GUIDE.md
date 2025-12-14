@@ -17,8 +17,8 @@ php artisan migrate:fresh --seed
 1. **Open browser** → http://localhost:8000
 2. **Click Login** (pojok kanan atas)
 3. **Enter credentials:**
-   - Email: `admin@gmail.com` (or `admin@rutanshop.com`)
-   - Password: (password untuk admin@gmail.com or `admin123` untuk admin@rutanshop.com)
+   - Email: `admin@gmail.com` (or `admin@rutaroshop.com`)
+   - Password: (password untuk admin@gmail.com or `admin123` untuk admin@rutaroshop.com)
 4. **Click "Log in"**
 
 ### Expected Results:
@@ -464,7 +464,7 @@ php artisan migrate:fresh --seed
 ## Notes:
 
 - Default admin credentials:
-  - Email: `admin@gmail.com` or `admin@rutanshop.com`
+  - Email: `admin@gmail.com` or `admin@rutaroshop.com`
   - Password: (created password or `admin123`)
 
 - All routes require: `['auth', 'admin']` middleware

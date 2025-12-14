@@ -2,7 +2,7 @@
 
 ## 📊 Overview Sistem
 
-RUTAN SHOP sekarang memiliki **sistem manajemen produk (CRUD) yang lengkap** untuk admin!
+RUTARO SHOP sekarang memiliki **sistem manajemen produk (CRUD) yang lengkap** untuk admin!
 
 ### Status Implementasi: ✅ **COMPLETE**
 
@@ -195,7 +195,7 @@ CREATE TABLE categories (
 ### Login ke Admin Panel
 ```
 URL: http://localhost:8000
-Email: admin@gmail.com (or admin@rutanshop.com)
+Email: admin@gmail.com (or admin@rutaroshop.com)
 Password: (password Anda or admin123)
 ```
 
@@ -435,7 +435,7 @@ php artisan user:make-admin admin@gmail.com
 
 ## 🎉 Summary
 
-**Sistem RUTAN SHOP sekarang dilengkapi dengan:**
+**Sistem RUTARO SHOP sekarang dilengkapi dengan:**
 
 ✅ Admin Panel lengkap dengan dashboard
 ✅ Manajemen produk CRUD yang robust
@@ -482,6 +482,6 @@ php artisan tinker
 
 ---
 
-**Terima kasih telah menggunakan RUTAN SHOP Admin Panel!** 🎊
+**Terima kasih telah menggunakan RUTARO SHOP Admin Panel!** 🎊
 
 Untuk pertanyaan atau perlu bantuan, refer ke dokumentasi yang tersedia.

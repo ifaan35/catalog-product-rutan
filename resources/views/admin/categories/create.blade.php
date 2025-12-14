@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between mb-8">
         <div>
             <h1 class="text-3xl font-bold text-[#072138]">Tambah Kategori Baru</h1>
-            <p class="text-gray-600 mt-2">Buat kategori baru untuk mengorganisir produk RUTAN SHOP</p>
+            <p class="text-gray-600 mt-2">Buat kategori baru untuk mengorganisir produk RUTARO SHOP</p>
         </div>
         <a href="{{ route('admin.categories.index') }}" 
            class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300 ease-in-out">
@@ -96,7 +96,7 @@
 <!-- Category Examples -->
 <div class="mt-8 p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <h3 class="text-lg font-semibold text-[#072138] mb-4">
-        <i class="fas fa-lightbulb mr-2"></i>Contoh Kategori untuk RUTAN SHOP
+        <i class="fas fa-lightbulb mr-2"></i>Contoh Kategori untuk RUTARO SHOP
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-[#DFE1E3] p-4 rounded-lg">

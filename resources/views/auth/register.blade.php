@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4 tracking-tight" style="color: #07213C;">Bergabung dengan RUTAN SHOP</h2>
+        <h2 class="text-3xl font-bold mb-4 tracking-tight" style="color: #07213C;">Bergabung dengan RUTARO SHOP</h2>
         <p class="text-base font-light" style="color: #6B7280;">Mulai perjalanan Anda dengan produk berkualitas hasil karya warga binaan</p>
         <div class="w-16 h-1 mx-auto mt-5 rounded-full" style="background-color: #ECBF62;"></div>
     </div>

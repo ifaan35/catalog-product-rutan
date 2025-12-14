@@ -33,7 +33,7 @@
 
                 <!-- Heading -->
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    Rutan <span style="color: #ECBF62;">Shop</span>
+                    Rutaro <span style="color: #ECBF62;">Shop</span>
                 </h1>
 
                 <!-- Subtitle -->

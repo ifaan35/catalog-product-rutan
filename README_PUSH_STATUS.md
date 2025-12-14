@@ -248,5 +248,5 @@ Open: `PUSH_KE_GITHUB.md`
 ---
 
 **Created:** December 8, 2025
-**Project:** RUTAN SHOP - Catalog Product E-Commerce
+**Project:** RUTARO SHOP - Catalog Product E-Commerce
 **Status:** ✅ Ready for Production

@@ -1,10 +1,10 @@
-# 🚀 RUTAN SHOP - QUICK START
+# 🚀 RUTARO SHOP - QUICK START
 
 ## 🎯 Admin Login
 
 ```
 URL: http://localhost:8000
-Email: admin@gmail.com (or admin@rutanshop.com)
+Email: admin@gmail.com (or admin@rutaroshop.com)
 Password: (your password or admin123)
 ```
 

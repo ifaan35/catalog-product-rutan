@@ -4,7 +4,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold" style="color: #072138;">Manajemen Produk RUTAN SHOP</h1>
+            <h1 class="text-3xl font-bold" style="color: #072138;">Manajemen Produk RUTARO SHOP</h1>
             <a href="{{ route('admin.products.create') }}" class="font-bold py-2 px-4 rounded-md transition duration-300" style="background-color: #F3C32A; color: #072138;">
                 + Tambah Produk Baru
             </a>

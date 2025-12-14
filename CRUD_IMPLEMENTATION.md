@@ -1,4 +1,4 @@
-# Implementasi Manajemen Produk (CRUD) - RUTAN SHOP
+# Implementasi Manajemen Produk (CRUD) - RUTARO SHOP
 
 ## 📋 Overview
 Sistem manajemen produk admin telah diimplementasikan dengan fitur lengkap:
@@ -95,7 +95,7 @@ Semua views sudah tersedia dan styled dengan Tailwind CSS + custom colors:
    - Password: (password yang Anda set)
 
 2. Atau gunakan seeder credentials:
-   - Email: `admin@rutanshop.com`
+   - Email: `admin@rutaroshop.com`
    - Password: `admin123`
 
 3. Akses menu admin → Manajemen Produk
@@ -343,4 +343,4 @@ CREATE TABLE categories (
 - Hapus produk yang tidak dibutuhkan lagi
 - Assign kategori ke produk
 
-🎉 **Sistem RUTAN SHOP hampir selesai!**
+🎉 **Sistem RUTARO SHOP hampir selesai!**

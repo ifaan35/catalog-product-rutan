@@ -1,4 +1,4 @@
-# 🎯 Quick Start Guide - Admin Panel RUTAN SHOP
+# 🎯 Quick Start Guide - Admin Panel RUTARO SHOP
 
 ## Login Admin
 
@@ -7,7 +7,7 @@
 - **Password**: (Password yang Anda buat saat registrasi)
 
 ### Opsi 2: Gunakan Seeder Credentials
-- **Email**: `admin@rutanshop.com`
+- **Email**: `admin@rutaroshop.com`
 - **Password**: `admin123`
 
 ## Akses Admin Panel
@@ -174,7 +174,7 @@ Dari admin panel, Anda juga bisa:
 **A**: 
 - Pastikan email dan password benar
 - Cek apakah user sudah terdaftar di database
-- Jika lupa password, gunakan credentials seeder: admin@rutanshop.com / admin123
+- Jika lupa password, gunakan credentials seeder: admin@rutaroshop.com / admin123
 
 ### Q: Akses `/admin` ditolak?
 **A**:
@@ -208,7 +208,7 @@ Jika menemukan issue atau error:
 
 ## 🎉 Selamat!
 
-Anda siap mengelola produk di **RUTAN SHOP** Admin Panel! 🚀
+Anda siap mengelola produk di **RUTARO SHOP** Admin Panel! 🚀
 
 **Fitur yang tersedia:**
 - ✅ Tambah Produk

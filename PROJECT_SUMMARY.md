@@ -1,4 +1,4 @@
-# 📦 RUTAN SHOP - Project Summary
+# 📦 RUTARO SHOP - Project Summary
 
 ## Status: ✅ READY FOR DEPLOYMENT
 

@@ -4,7 +4,7 @@
             <!-- Logo -->
             <div class="shrink-0 flex items-center gap-4">
                 <a href="{{ route('home') }}" class="transition duration-300 hover:opacity-80">
-                    <img src="{{ asset('images/logo/LOGO Gabungan.png') }}" alt="RUTAN Logo" class="h-16 w-auto">
+                    <img src="{{ asset('images/logo/LOGO Gabungan.png') }}" alt="RUTARO Logo" class="h-16 w-auto">
                 </a>                
             </div>
 

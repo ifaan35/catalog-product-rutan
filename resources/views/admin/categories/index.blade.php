@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center mb-6">
         <div>
             <h1 class="text-3xl font-bold text-[#072138]">Manajemen Kategori</h1>
-            <p class="text-gray-600 mt-2">Kelola kategori produk RUTAN SHOP</p>
+            <p class="text-gray-600 mt-2">Kelola kategori produk RUTARO SHOP</p>
         </div>
         <a href="{{ route('admin.categories.create') }}" 
            class="bg-[#F3C32A] hover:bg-yellow-500 text-[#072138] font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
@@ -115,7 +115,7 @@
                                 <div class="flex flex-col items-center">
                                     <i class="fas fa-folder-open text-6xl text-gray-300 mb-4"></i>
                                     <h3 class="text-lg font-medium text-gray-900 mb-2">Belum ada kategori</h3>
-                                    <p class="text-gray-500 mb-4">Mulai dengan menambahkan kategori pertama untuk produk RUTAN SHOP.</p>
+                                    <p class="text-gray-500 mb-4">Mulai dengan menambahkan kategori pertama untuk produk RUTARO SHOP.</p>
                                     <a href="{{ route('admin.categories.create') }}" 
                                        class="bg-[#F3C32A] hover:bg-yellow-500 text-[#072138] font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
                                         <i class="fas fa-plus mr-2"></i>Tambah Kategori Pertama

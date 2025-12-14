@@ -1,4 +1,4 @@
-# 🎊 MANAJEMEN PRODUK RUTAN SHOP - IMPLEMENTASI SELESAI!
+# 🎊 MANAJEMEN PRODUK RUTARO SHOP - IMPLEMENTASI SELESAI!
 
 ## 📊 Project Status: ✅ COMPLETE & READY
 
@@ -233,7 +233,7 @@ Category hasMany Products
 ### 1. Login
 ```
 URL: http://localhost:8000
-Email: admin@gmail.com or admin@rutanshop.com
+Email: admin@gmail.com or admin@rutaroshop.com
 Password: (your password or admin123)
 ```
 
@@ -345,7 +345,7 @@ a821098 - feat: redesign homepage
 
 ```
 ┌─────────────────────────────────────────┐
-│         RUTAN SHOP ADMIN PANEL          │
+│         RUTARO SHOP ADMIN PANEL          │
 ├─────────────────────────────────────────┤
 │                                         │
 │  Front-end (Blade Templates)            │
@@ -477,6 +477,6 @@ For questions or issues:
 
 ---
 
-**Terima kasih telah menggunakan RUTAN SHOP! 🚀**
+**Terima kasih telah menggunakan RUTARO SHOP! 🚀**
 
 Sistem manajemen produk Anda sudah siap untuk mengatur ribuan produk dengan mudah!

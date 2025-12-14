@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <h1 class="text-3xl font-bold mb-2" style="color: #10B981;">Pesanan Berhasil Dibuat!</h1>
-                <p class="text-lg" style="color: #6B7280;">Terima kasih telah berbelanja di RUTAN SHOP</p>
+                <p class="text-lg" style="color: #6B7280;">Terima kasih telah berbelanja di RUTARO SHOP</p>
             </div>
 
             <!-- Order Details -->
@@ -124,7 +124,7 @@
             <div class="mt-8 pt-8" style="border-top-color: #E1E2E4;" class="border-t text-center">
                 <p class="text-sm" style="color: #6B7280;">Ada pertanyaan? Hubungi kami di WhatsApp atau Email</p>
                 <p class="text-sm font-semibold mt-2" style="color: #07213C;">
-                    📞 +62-815-3956-1898 | 📧 info@rutanshop.com
+                    📞 +62-815-3956-1898 | 📧 info@rutaroshop.com
                 </p>
             </div>
         </div>

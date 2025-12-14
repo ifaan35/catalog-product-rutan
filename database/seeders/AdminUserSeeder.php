@@ -16,10 +16,10 @@ class AdminUserSeeder extends Seeder
     {
         // Buat user admin untuk testing
         User::updateOrCreate(
-            ['email' => 'admin@rutanshop.com'],
+            ['email' => 'admin@rutaroshop.com'],
             [
-                'name' => 'Admin RUTAN SHOP',
-                'email' => 'admin@rutanshop.com',
+                'name' => 'Admin RUTARO SHOP',
+                'email' => 'admin@rutaroshop.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
@@ -28,10 +28,10 @@ class AdminUserSeeder extends Seeder
 
         // Buat user petugas lainnya
         User::updateOrCreate(
-            ['email' => 'petugas@rutanshop.com'],
+            ['email' => 'petugas@rutaroshop.com'],
             [
-                'name' => 'Petugas RUTAN',
-                'email' => 'petugas@rutanshop.com',
+                'name' => 'Petugas RUTARO SHOP',
+                'email' => 'petugas@rutaroshop.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('petugas123'),
                 'role' => 'admin',
@@ -51,8 +51,8 @@ class AdminUserSeeder extends Seeder
         );
 
         echo "Admin users created successfully!\n";
-        echo "Admin: admin@rutanshop.com / admin123\n";
-        echo "Petugas: petugas@rutanshop.com / petugas123\n";
+        echo "Admin: admin@rutaroshop.com / admin123\n";
+        echo "Petugas: petugas@rutaroshop.com / petugas123\n";
         echo "Customer: customer@example.com / customer123\n";
     }
 }

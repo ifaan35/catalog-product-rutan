@@ -44,7 +44,7 @@
                         </h2>
                         
                         <p class="text-lg mb-6 leading-relaxed" style="color: #6B7280;">
-                            RUTAN SHOP adalah lebih dari sekadar toko online. Ini adalah platform yang didedikasikan untuk 
+                            RUTARO SHOP adalah lebih dari sekadar toko online. Ini adalah platform yang didedikasikan untuk 
                             mendukung reintegrasi sosial warga binaan melalui hasil karya dan keterampilan yang mereka pelajari 
                             di dalam Rutan.
                         </p>

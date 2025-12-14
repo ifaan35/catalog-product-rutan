@@ -63,7 +63,7 @@
                     <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
-                    Item Produk RUTAN SHOP
+                    Item Produk RUTARO SHOP
                 </h3>
                 
                 <div class="space-y-4">
@@ -132,7 +132,7 @@
                 
                 <div class="mt-6 pt-4 border-t border-gray-200">
                     <p class="text-xs text-gray-500 text-center">
-                        Pesanan dari <span style="color: #F3C32A;" class="font-bold">RUTAN SHOP</span><br>
+                        Pesanan dari <span style="color: #F3C32A;" class="font-bold">RUTARO SHOP</span><br>
                         Social Enterprise - Hasil Karya Warga Binaan
                     </p>
                 </div>

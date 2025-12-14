@@ -19,7 +19,7 @@ class ShowProducts extends Command
      *
      * @var string
      */
-    protected $description = 'Tampilkan daftar produk RUTAN SHOP';
+    protected $description = 'Tampilkan daftar produk RUTARO SHOP';
 
     /**
      * Execute the console command.
@@ -28,7 +28,7 @@ class ShowProducts extends Command
      */
     public function handle()
     {
-        $this->info('=== RUTAN SHOP PRODUCTS ===');
+        $this->info('=== RUTARO SHOP PRODUCTS ===');
         $this->line('');
 
         $products = Product::orderBy('name')->get();

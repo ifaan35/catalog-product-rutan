@@ -7,7 +7,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
             </svg>
             <h3 class="mt-2 text-sm font-medium text-gray-900">Belum ada pesanan</h3>
-            <p class="mt-1 text-sm text-gray-500">Pelanggan belum melakukan pemesanan produk RUTAN SHOP.</p>
+            <p class="mt-1 text-sm text-gray-500">Pelanggan belum melakukan pemesanan produk RUTARO SHOP.</p>
         </div>
     @else
         <table class="min-w-full divide-y divide-gray-200">

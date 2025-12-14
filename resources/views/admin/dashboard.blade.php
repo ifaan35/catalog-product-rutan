@@ -88,11 +88,11 @@
                     <h1 class="text-4xl font-bold mb-2">
                         👋 Selamat Datang, {{ Auth::user()->name }}!
                     </h1>
-                    <p class="text-blue-100 text-lg">Dashboard RUTAN SHOP Admin - Kelola toko Anda dengan mudah</p>
+                    <p class="text-blue-100 text-lg">Dashboard RUTARO SHOP Admin - Kelola toko Anda dengan mudah</p>
                 </div>
                 <div class="text-right hidden md:block">
                     <p class="text-blue-100 text-sm mb-1">Admin Panel</p>
-                    <p class="text-3xl font-bold" style="color: #ECBF62;">RUTAN</p>
+                    <p class="text-3xl font-bold" style="color: #ECBF62;">RUTARO</p>
                 </div>
             </div>
         </div>
@@ -176,7 +176,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2" style="color: #072138;">📦 Kelola Produk</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Tambah, edit, atau hapus produk RUTAN SHOP dengan mudah</p>
+                    <p class="text-gray-600 mb-4 text-sm">Tambah, edit, atau hapus produk RUTARO SHOP dengan mudah</p>
                     <a href="{{ route('admin.products.index') }}" class="inline-block px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105" style="background-color: #ECBF62; color: #072138;">
                         Manajemen Produk →
                     </a>

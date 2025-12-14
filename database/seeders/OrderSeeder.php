@@ -22,7 +22,7 @@ class OrderSeeder extends Seeder
         if (!$user) {
             $user = User::create([
                 'name' => 'Test User',
-                'email' => 'test@rutanshop.com',
+                'email' => 'test@rutaroshop.com',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
             ]);

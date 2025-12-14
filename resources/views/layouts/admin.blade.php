@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - Admin RUTAN SHOP</title>
+    <title>@yield('title') - Admin RUTARO SHOP</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo/FA_Logo_Kementrian_Imigrasi_dan_Pemasyarakatan.png') }}">
@@ -21,7 +21,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* RUTAN SHOP Brand Colors */
+        /* RUTARO SHOP Brand Colors */
         :root {
             --rutan-navy: #072138;
             --rutan-yellow: #F3C32A; 
@@ -46,7 +46,7 @@
                         <i class="fas fa-shield-alt text-[#072138] text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-white font-bold text-lg">RUTAN SHOP</h1>
+                        <h1 class="text-white font-bold text-lg">RUTARO SHOP</h1>
                         <p class="text-[#F3C32A] text-sm">Admin Panel</p>
                     </div>
                 </div>

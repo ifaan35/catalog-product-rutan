@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'RUTAN SHOP') }}</title>
+        <title>{{ config('app.name', 'RUTARO SHOP') }}</title>
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="{{ asset('images/logo/FA_Logo_Kementrian_Imigrasi_dan_Pemasyarakatan.png') }}">
@@ -51,7 +51,7 @@
                          alt="Logo Kementerian Imigrasi dan Pemasyarakatan" 
                          class="h-20 w-auto mx-auto mb-4">
                     <h1 class="text-4xl font-bold text-white tracking-tight mb-2">
-                        RUTAN SHOP
+                        RUTARO SHOP
                     </h1>
                 </a>
                 <p class="text-gray-300 mt-2 text-sm">Produk Berkualitas Hasil Karya Warga Binaan</p>

@@ -42,7 +42,7 @@
                             </span>
                         </div>
                         <h1 class="text-5xl sm:text-7xl font-black mb-6 leading-tight" style="color: white;">
-                            Rutan <span style="color: #ECBF62;">Shop</span>
+                            Rutaro <span style="color: #ECBF62;">Shop</span>
                         </h1>
                         <p class="text-lg leading-relaxed mb-10 opacity-90" style="color: rgba(255,255,255,0.9);">
                             Temukan ribuan produk pilihan berkualitas tinggi. Dari peternakan, perikanan, hingga pertanian. Semua ada di sini dengan harga terjangkau dan pengiriman cepat ke seluruh Indonesia.

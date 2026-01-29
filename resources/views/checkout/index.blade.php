@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <form action="{{ route('checkout.store') }}" method="POST">
+        <form id="checkout-form" action="{{ route('checkout.store') }}" method="POST">
             @csrf
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
@@ -169,7 +169,7 @@
                         <input type="hidden" name="district_name" id="district_name">
                         <input type="hidden" name="village_name" id="village_name">
 
-                        <button type="submit" id="submit-btn" class="w-full font-bold py-3 rounded-lg transition duration-300 hover:opacity-90 shadow-lg" style="background-color: #ECBF62; color: #07213C;">
+                        <button type="button" id="submit-btn" class="w-full font-bold py-3 rounded-lg transition duration-300 hover:opacity-90 shadow-lg" style="background-color: #ECBF62; color: #07213C;">
                             🔒 KONFIRMASI PEMBAYARAN
                         </button>
                         <p class="text-xs text-center mt-2" style="color: #6B7280;">Data Anda diamankan dengan enkripsi SSL.</p>
@@ -179,12 +179,39 @@
         </form>
     </div>
 
+    <!-- Midtrans Snap.js - Load with explicit onload callback -->
+    <script type="text/javascript"
+            src="{{ config('midtrans.is_production') ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js' }}"
+            data-client-key="{{ config('midtrans.client_key') }}"
+            onload="console.log('✓ Midtrans Snap.js loaded successfully'); window.snapLoaded = true;"
+            onerror="console.error('✗ Failed to load Midtrans Snap.js'); window.snapLoaded = false;"></script>
+
     <script>
         const API_BASE = '/api/indonesia';
+        
+        // Debug: Log Midtrans configuration
+        console.log('%c=== MIDTRANS CONFIGURATION ===', 'color: blue; font-weight: bold;');
+        console.log('Client Key:', '{{ config("midtrans.client_key") }}');
+        console.log('Is Production:', {{ config('midtrans.is_production') ? 'true' : 'false' }});
+        console.log('Snap URL:', '{{ config("midtrans.is_production") ? "https://app.midtrans.com/snap/snap.js" : "https://app.sandbox.midtrans.com/snap/snap.js" }}');
 
         // Load provinces on page load
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('DOMContentLoaded - Loading provinces...');
+            
+            // Wait for Snap.js to load
+            let attempts = 0;
+            while (typeof window.snap === 'undefined' && attempts < 50) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            if (typeof window.snap !== 'undefined') {
+                console.log('%c✓ Midtrans Snap is ready!', 'color: green; font-weight: bold;');
+            } else {
+                console.error('%c✗ Midtrans Snap failed to load after 5 seconds!', 'color: red; font-weight: bold;');
+            }
+            
             await loadProvinces();
         });
 
@@ -427,45 +454,45 @@
             console.log('✓ Village selected:', { id: e.target.value, name: villageName });
         });
 
-        // Button click handler for debugging
+        // Button click handler - MAIN PAYMENT HANDLER
         const submitBtn = document.getElementById('submit-btn');
-        if (submitBtn) {
-            submitBtn.addEventListener('click', function(e) {
-                console.log('%c[BUTTON CLICK]', 'color: orange; font-weight: bold; font-size: 12px;', 'Konfirmasi Pembayaran button clicked');
-                console.log('Button element:', this);
-                console.log('Event object:', e);
-            });
-        }
-
-        // Form submission handler with comprehensive debugging
-        const form = document.querySelector('form');
+        const form = document.getElementById('checkout-form');
         
-        form.addEventListener('submit', function(e) {
-            console.log('%c=== CHECKOUT FORM SUBMISSION START ===', 'color: blue; font-weight: bold; font-size: 14px;');
-            console.log('%cForm Element:', 'color: green; font-weight: bold;', form);
-            console.log('%cForm Action:', 'color: green; font-weight: bold;', this.action);
-            console.log('%cForm Method:', 'color: green; font-weight: bold;', this.method);
+        console.log('%c=== FORM DEBUGGING ===', 'color: purple; font-weight: bold;');
+        console.log('Submit button found:', submitBtn !== null);
+        console.log('Form found:', form !== null);
+        console.log('Form element:', form);
+        
+        if (submitBtn && form) {
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any default action
+                
+                console.log('%c=== CHECKOUT PAYMENT PROCESS START ===', 'color: blue; font-weight: bold; font-size: 14px;');
+                console.log('Button clicked!', this);
+                console.log('Form:', form);
+                console.log('Form Action:', form.action);
             
-            // Extract all required fields
-            const formData = new FormData(form);
+                // Extract all required fields
+                const formData = new FormData(form);
             
             console.log('%cAll Form Fields:', 'color: purple; font-weight: bold;');
             for (let [key, value] of formData.entries()) {
                 console.log(`  ${key}: "${value}"`);
             }
             
-            // Get individual field values for validation
-            const recipient_name = form.querySelector('input[name="recipient_name"]').value.trim();
-            const phone_number = form.querySelector('input[name="phone_number"]').value.trim();
-            const province_id = form.querySelector('select[name="province_id"]').value.trim();
-            const regency_id = form.querySelector('select[name="regency_id"]').value.trim();
-            const district_id = form.querySelector('select[name="district_id"]').value.trim();
-            const village_id = form.querySelector('select[name="village_id"]').value.trim();
-            const detail_address = form.querySelector('textarea[name="detail_address"]').value.trim();
-            const province_name = form.querySelector('input[name="province_name"]').value.trim();
-            const regency_name = form.querySelector('input[name="regency_name"]').value.trim();
-            const district_name = form.querySelector('input[name="district_name"]').value.trim();
-            const village_name = form.querySelector('input[name="village_name"]').value.trim();
+            // Get individual field values for validation (with safe null checking)
+            const recipient_name = form.querySelector('input[name="recipient_name"]')?.value?.trim() || '';
+            const phone_number = form.querySelector('input[name="phone_number"]')?.value?.trim() || '';
+            const province_id = form.querySelector('select[name="province_id"]')?.value?.trim() || '';
+            const regency_id = form.querySelector('select[name="regency_id"]')?.value?.trim() || '';
+            const district_id = form.querySelector('select[name="district_id"]')?.value?.trim() || '';
+            const village_id = form.querySelector('select[name="village_id"]')?.value?.trim() || '';
+            const detail_address = form.querySelector('textarea[name="detail_address"]')?.value?.trim() || '';
+            const postal_code = form.querySelector('input[name="postal_code"]')?.value?.trim() || '';
+            const province_name = form.querySelector('input[name="province_name"]')?.value?.trim() || '';
+            const regency_name = form.querySelector('input[name="regency_name"]')?.value?.trim() || '';
+            const district_name = form.querySelector('input[name="district_name"]')?.value?.trim() || '';
+            const village_name = form.querySelector('input[name="village_name"]')?.value?.trim() || '';
 
             console.log('%cExtracted Form Data:', 'color: orange; font-weight: bold;', {
                 recipient_name: { value: recipient_name, length: recipient_name.length },
@@ -478,7 +505,8 @@
                 district_name: { value: district_name, length: district_name.length },
                 village_id: { value: village_id, length: village_id.length },
                 village_name: { value: village_name, length: village_name.length },
-                detail_address: { value: detail_address, length: detail_address.length }
+                detail_address: { value: detail_address, length: detail_address.length },
+                postal_code: { value: postal_code, length: postal_code.length }
             });
 
             // Perform validation
@@ -494,11 +522,11 @@
             if (!village_id) errors.push('❌ Kelurahan/Desa harus dipilih');
             if (!village_name) errors.push('❌ Nama Kelurahan/Desa tidak tersimpan (silahkan pilih ulang)');
             if (!detail_address) errors.push('❌ Detail Alamat harus diisi');
+            if (!postal_code) errors.push('❌ Kode Pos harus diisi');
 
             console.log('%cValidation Result:', 'color: darkred; font-weight: bold;', `${errors.length === 0 ? '✓ PASSED' : '✗ FAILED'}`);
 
             if (errors.length > 0) {
-                e.preventDefault();
                 console.error('%cVALIDATION ERRORS:', 'color: red; font-weight: bold; font-size: 12px;', errors);
                 const errorMsg = 'Validasi Form Gagal!\n\n' + errors.join('\n');
                 console.error(errorMsg);
@@ -506,10 +534,87 @@
                 return false;
             }
 
-            console.log('%c✓ ALL VALIDATION PASSED - FORM WILL SUBMIT', 'color: green; font-weight: bold; font-size: 14px;');
-            console.log('%cSubmitting to:', 'color: green; font-weight: bold;', this.action);
-            console.log('%c=== FORM SUBMISSION PROCEEDING ===', 'color: blue; font-weight: bold; font-size: 14px;');
-            // Form will submit normally here
-        });
+            console.log('%c✓ ALL VALIDATION PASSED - PROCESSING PAYMENT', 'color: green; font-weight: bold; font-size: 14px;');
+            
+            // Submit form via AJAX to get Snap Token
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Memproses...';
+            
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                             document.querySelector('input[name="_token"]')?.value;
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('%cResponse data received:', 'color: blue; font-weight: bold;', data);
+                
+                if (data.success && data.snap_token) {
+                    console.log('%c✓ Snap Token received:', 'color: green; font-weight: bold;', data.snap_token);
+                    console.log('Order ID:', data.order_id);
+                    
+                    // Check if snap is loaded
+                    console.log('Checking window.snap...', typeof window.snap);
+                    
+                    if (typeof window.snap === 'undefined') {
+                        console.error('%c✗ window.snap is undefined!', 'color: red; font-weight: bold;');
+                        throw new Error('Midtrans Snap belum loaded. Silakan refresh halaman.');
+                    }
+                    
+                    console.log('%c✓ Opening Midtrans payment popup...', 'color: green; font-weight: bold;');
+                    
+                    // Open Midtrans Snap popup
+                    try {
+                        window.snap.pay(data.snap_token, {
+                            onSuccess: function(result) {
+                                console.log('%cPayment Success!', 'color: green; font-weight: bold;', result);
+                                window.location.href = '/checkout/success/' + data.order_id;
+                            },
+                            onPending: function(result) {
+                                console.log('%cPayment Pending', 'color: orange; font-weight: bold;', result);
+                                window.location.href = '/checkout/success/' + data.order_id;
+                            },
+                            onError: function(result) {
+                                console.error('%cPayment Error!', 'color: red; font-weight: bold;', result);
+                                alert('Pembayaran gagal. Silakan coba lagi.');
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';
+                            },
+                            onClose: function() {
+                                console.log('%cPayment popup closed by user', 'color: gray; font-weight: bold;');
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';
+                            }
+                        });
+                    } catch (snapError) {
+                        console.error('%c✗ Error calling window.snap.pay():', 'color: red; font-weight: bold;', snapError);
+                        throw snapError;
+                    }
+                } else {
+                    console.error('%c✗ Invalid response from server', 'color: red; font-weight: bold;', data);
+                    throw new Error(data.message || 'Gagal membuat transaksi');
+                }
+            })
+            .catch(error => {
+                console.error('%c✗ CHECKOUT ERROR:', 'color: red; font-weight: bold; font-size: 14px;', error);
+                console.error('Error details:', error.message);
+                console.error('Error stack:', error.stack);
+                alert('Terjadi kesalahan: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';
+            });
+            });
+        }
     </script>
 </x-app-layout>

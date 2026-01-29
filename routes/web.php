@@ -79,6 +79,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Midtrans Callback (harus di luar middleware auth karena dipanggil dari server Midtrans)
+Route::post('/midtrans/notification', [CheckoutController::class, 'handleMidtransNotification'])->name('midtrans.notification');
+
 // Rute yang hanya dapat diakses oleh Petugas Rutan (Admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard Admin

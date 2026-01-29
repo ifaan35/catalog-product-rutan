@@ -9,6 +9,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class CheckoutController extends Controller
 {
@@ -130,14 +132,69 @@ class CheckoutController extends Controller
                 }
             }
 
-            // C. Hapus Keranjang dari Session
-            session()->forget('cart');
-            session()->forget('cart_count');
+            // C. Integrasi Midtrans Payment Gateway
+            // Konfigurasi Midtrans
+            Config::$serverKey = config('midtrans.server_key');
+            Config::$isProduction = config('midtrans.is_production');
+            Config::$isSanitized = config('midtrans.is_sanitized');
+            Config::$is3ds = config('midtrans.is_3ds');
 
-            DB::commit(); // Simpan perubahan permanen
+            // Siapkan parameter transaksi untuk Midtrans
+            $params = [
+                'transaction_details' => [
+                    'order_id' => $order->order_number,
+                    'gross_amount' => (int) $totalAmount,
+                ],
+                'customer_details' => [
+                    'first_name' => $request->recipient_name,
+                    'phone' => $request->phone_number,
+                    'address' => $address,
+                ],
+                'item_details' => [],
+            ];
 
-            // Redirect ke halaman sukses dengan menampilkan detail order
-            return redirect()->route('checkout.success', $order->id)->with('success', 'Pesanan berhasil dibuat!');
+            // Tambahkan item detail
+            foreach($cart as $item) {
+                $params['item_details'][] = [
+                    'id' => $item['id'],
+                    'price' => (int) $item['price'],
+                    'quantity' => (int) $item['quantity'],
+                    'name' => $item['name'],
+                ];
+            }
+
+            try {
+                // Dapatkan Snap Token dari Midtrans
+                $snapToken = Snap::getSnapToken($params);
+                $order->snap_token = $snapToken;
+                $order->save();
+
+                Log::info('Midtrans Snap Token generated:', ['order_id' => $order->id, 'snap_token' => $snapToken]);
+
+                // D. Hapus Keranjang dari Session
+                session()->forget('cart');
+                session()->forget('cart_count');
+
+                DB::commit(); // Simpan perubahan permanen
+
+                // Return JSON response untuk AJAX
+                return response()->json([
+                    'success' => true,
+                    'snap_token' => $snapToken,
+                    'order_id' => $order->id,
+                ]);
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Midtrans Snap Token generation failed:', [
+                    'message' => $e->getMessage(),
+                    'order_id' => $order->id,
+                ]);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal membuat transaksi pembayaran: ' . $e->getMessage()
+                ], 500);
+            }
 
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan semua perubahan jika ada error
@@ -147,6 +204,15 @@ class CheckoutController extends Controller
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
             ]);
+            
+            // Return JSON for AJAX requests
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage()
+                ], 500);
+            }
+            
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
         }
     }
@@ -173,5 +239,79 @@ class CheckoutController extends Controller
             ->paginate(10);
 
         return view('checkout.history', compact('orders'));
+    }
+
+    /**
+     * Handle Midtrans notification callback
+     */
+    public function handleMidtransNotification(Request $request)
+    {
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+
+        try {
+            $notification = new \Midtrans\Notification();
+
+            $transactionStatus = $notification->transaction_status;
+            $orderNumber = $notification->order_id;
+            $fraudStatus = $notification->fraud_status;
+
+            Log::info('Midtrans notification received:', [
+                'order_number' => $orderNumber,
+                'transaction_status' => $transactionStatus,
+                'fraud_status' => $fraudStatus,
+            ]);
+
+            // Cari order berdasarkan order_number
+            $order = Order::where('order_number', $orderNumber)->first();
+
+            if (!$order) {
+                Log::error('Order not found for notification:', ['order_number' => $orderNumber]);
+                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
+            }
+
+            // Update status pembayaran berdasarkan notifikasi Midtrans
+            if ($transactionStatus == 'capture') {
+                if ($fraudStatus == 'accept') {
+                    $order->payment_status = 'paid';
+                    $order->status = 'processing';
+                }
+            } else if ($transactionStatus == 'settlement') {
+                $order->payment_status = 'paid';
+                $order->status = 'processing';
+            } else if ($transactionStatus == 'pending') {
+                $order->payment_status = 'pending';
+                $order->status = 'pending';
+            } else if ($transactionStatus == 'deny' || $transactionStatus == 'expire' || $transactionStatus == 'cancel') {
+                $order->payment_status = 'failed';
+                $order->status = 'cancelled';
+                
+                // Kembalikan stok produk jika pembayaran gagal
+                foreach ($order->orderItems as $item) {
+                    $product = Product::find($item->product_id);
+                    if ($product) {
+                        $product->increment('stock', $item->quantity);
+                    }
+                }
+            }
+
+            $order->save();
+
+            Log::info('Order updated from Midtrans notification:', [
+                'order_id' => $order->id,
+                'payment_status' => $order->payment_status,
+                'status' => $order->status,
+            ]);
+
+            return response()->json(['status' => 'success']);
+
+        } catch (\Exception $e) {
+            Log::error('Midtrans notification handling failed:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
     }
 }

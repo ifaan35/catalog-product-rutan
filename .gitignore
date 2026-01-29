@@ -16,3 +16,21 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+# Documentation files with sensitive info
+*MIDTRANS*.md
+*QUICK*.md
+*TEST*.md
+*SETUP*.md
+*START*.md
+*FIX*.md
+*SANDBOX*.md
+*PRODUCTION*.md
+*ADMIN*.md
+*PAYMENT*.md
+*CHECKOUT*.md
+*DASHBOARD*.md
+*IMPLEMENTATION*.md
+*SESSION*.md
+*ISSUE*.md
+*COMPLETION*.md
+*.txt

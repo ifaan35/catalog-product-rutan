@@ -38,7 +38,7 @@
 
                 <!-- Subtitle -->
                 <p class="text-base text-white mb-8 leading-relaxed" style="opacity: 0.95;">
-                    Temukan ribuan produk pilihan berkualitas tinggi. Dari peternakan, perikanan, hingga pertanian.
+                    Temukan berbagai produk pilihan berkualitas tinggi. Dari peternakan, perikanan, hingga pertanian.
                     Semua ada di sini dengan harga terjangkau dan pengiriman cepat ke seluruh Indonesia.
                 </p>
 
@@ -52,7 +52,7 @@
                         <span>Mulai Belanja Sekarang</span>
                     </a>
 
-                    <a href="#categories"
+                    <a href="{{ route('about') }}"
                         class="inline-flex items-center justify-center gap-2 font-bold py-3 px-8 rounded-lg transition duration-300 
                         hover:shadow-lg transform text-center"
                         style="border: 2px solid #ECBF62; color: #ECBF62; background-color: transparent; font-size: 14px;">
@@ -97,12 +97,12 @@
         <!-- STATS ROW - Bottom (Desktop) -->
         <div class="hidden lg:flex justify-start items-center gap-16 mt-16 border-t pt-8" style="border-color: rgba(236, 191, 98, 0.2);">
             <div class="text-left">
-                <div style="color: #ECBF62; font-size: 48px; font-weight: 900; line-height: 1;">500+</div>
+                <div style="color: #ECBF62; font-size: 48px; font-weight: 900; line-height: 1;">10+</div>
                 <p style="color: white; font-size: 14px; opacity: 0.8; margin-top: 6px;">Produk</p>
             </div>
 
             <div class="text-left">
-                <div style="color: #ECBF62; font-size: 48px; font-weight: 900; line-height: 1;">10K+</div>
+                <div style="color: #ECBF62; font-size: 48px; font-weight: 900; line-height: 1;">100+</div>
                 <p style="color: white; font-size: 14px; opacity: 0.8; margin-top: 6px;">Pelanggan</p>
             </div>
 
@@ -115,12 +115,12 @@
         <!-- STATS ROW (Mobile) -->
         <div class="lg:hidden grid grid-cols-3 gap-4 mt-12 border-t pt-6" style="border-color: rgba(236, 191, 98, 0.2);">
             <div class="text-center">
-                <div style="color: #ECBF62; font-size: 32px; font-weight: 900; line-height: 1;">500+</div>
+                <div style="color: #ECBF62; font-size: 32px; font-weight: 900; line-height: 1;">10+</div>
                 <p style="color: white; font-size: 12px; opacity: 0.8; margin-top: 4px;">Produk</p>
             </div>
 
             <div class="text-center">
-                <div style="color: #ECBF62; font-size: 32px; font-weight: 900; line-height: 1;">10K+</div>
+                <div style="color: #ECBF62; font-size: 32px; font-weight: 900; line-height: 1;">100+</div>
                 <p style="color: white; font-size: 12px; opacity: 0.8; margin-top: 4px;">Pelanggan</p>
             </div>
 

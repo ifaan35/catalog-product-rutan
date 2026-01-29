@@ -180,12 +180,12 @@
                         <!-- Statistics -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div class="text-center p-6 rounded-xl" style="background-color: rgba(236, 191, 98, 0.1); backdrop-filter: blur(10px);">
-                                <div class="text-5xl font-black mb-2" style="color: #ECBF62;">500+</div>
+                                <div class="text-5xl font-black mb-2" style="color: #ECBF62;">10+</div>
                                 <p class="text-white font-semibold">Warga Binaan Terlatih</p>
                             </div>
                             
                             <div class="text-center p-6 rounded-xl" style="background-color: rgba(236, 191, 98, 0.1); backdrop-filter: blur(10px);">
-                                <div class="text-5xl font-black mb-2" style="color: #ECBF62;">10K+</div>
+                                <div class="text-5xl font-black mb-2" style="color: #ECBF62;">100+</div>
                                 <p class="text-white font-semibold">Produk Terjual</p>
                             </div>
                             

@@ -45,13 +45,13 @@
                             Rutaro <span style="color: #ECBF62;">Shop</span>
                         </h1>
                         <p class="text-lg leading-relaxed mb-10 opacity-90" style="color: rgba(255,255,255,0.9);">
-                            Temukan ribuan produk pilihan berkualitas tinggi. Dari peternakan, perikanan, hingga pertanian. Semua ada di sini dengan harga terjangkau dan pengiriman cepat ke seluruh Indonesia.
+                            Temukan berbagai produk pilihan berkualitas tinggi. Dari peternakan, perikanan, hingga pertanian. Semua ada di sini dengan harga terjangkau dan pengiriman cepat ke seluruh Indonesia.
                         </p>
                         <div class="flex gap-4 flex-wrap">
                             <a href="{{ route('products.index') }}" class="px-8 py-4 rounded-xl font-bold transition duration-300 transform hover:shadow-2xl hover:scale-105" style="background: linear-gradient(135deg, #ECBF62 0%, #f5d07f 100%); color: #07213C;">
                                 🛍️ Mulai Belanja Sekarang
                             </a>
-                            <a href="#" class="px-8 py-4 rounded-xl font-bold border-2 transition duration-300 hover:bg-white hover:bg-opacity-20" style="border-color: #ECBF62; color: white;">
+                            <a href="{{ route('about') }}" class="px-8 py-4 rounded-xl font-bold border-2 transition duration-300 hover:bg-white hover:bg-opacity-20" style="border-color: #ECBF62; color: white;">
                                 📚 Pelajari Lebih Lanjut
                             </a>
                         </div>
@@ -59,11 +59,11 @@
                         <!-- Stats Section -->
                         <div class="grid grid-cols-3 gap-6 mt-12">
                             <div class="text-center border-l-2" style="border-color: #ECBF62;">
-                                <p class="text-3xl font-black" style="color: #ECBF62;">500+</p>
+                                <p class="text-3xl font-black" style="color: #ECBF62;">10+</p>
                                 <p class="text-sm opacity-75" style="color: white;">Produk</p>
                             </div>
                             <div class="text-center border-l-2" style="border-color: #ECBF62;">
-                                <p class="text-3xl font-black" style="color: #ECBF62;">10K+</p>
+                                <p class="text-3xl font-black" style="color: #ECBF62;">100+</p>
                                 <p class="text-sm opacity-75" style="color: white;">Pelanggan</p>
                             </div>
                             <div class="text-center border-l-2" style="border-color: #ECBF62;">
@@ -229,17 +229,17 @@
                             ['name' => 'pertanian', 'emoji' => '🌾'],
                             ['name' => 'makanan olahan', 'emoji' => '🍲']
                         ] as $cat)
-                            <div class="group cursor-pointer text-center transform transition-all duration-300 hover:scale-110">
+                            <a href="{{ route('products.category', strtolower($cat['name'])) }}" class="group cursor-pointer text-center transform transition-all duration-300 hover:scale-110 block">
                                 <!-- Circular Badge -->
                                 <div class="w-36 h-36 rounded-full mx-auto mb-6 flex items-center justify-center text-6xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-2" style="background-color: #D3D4D7;">
                                     {{ $cat['emoji'] }}
                                 </div>
 
                                 <!-- Category Name -->
-                                <p class="text-sm font-semibold transition duration-300" style="color: #07213C;">
+                                <p class="text-sm font-semibold transition duration-300 group-hover:text-yellow-600" style="color: #07213C;">
                                     {{ $cat['name'] }}
                                 </p>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>

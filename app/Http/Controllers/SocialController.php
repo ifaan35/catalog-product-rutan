@@ -24,7 +24,7 @@ class SocialController extends Controller
             return redirect()->route('login')->with('error', 'Provider tidak didukung.');
         }
 
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->stateless()->redirect();
     }
 
     /**
@@ -49,7 +49,7 @@ class SocialController extends Controller
 
             Log::info('Getting user from provider: ' . $provider);
             
-            $socialUser = Socialite::driver($provider)->user();
+            $socialUser = Socialite::driver($provider)->stateless()->user();
             
             Log::info('Social user received', [
                 'provider' => $provider,

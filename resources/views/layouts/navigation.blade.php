@@ -20,7 +20,7 @@
                 <a href="{{ route('about') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 px-3 py-2 text-sm">
                     About
                 </a>
-                <a href="{{ route('cart.index') }}" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm flex items-center gap-2 relative">
+                <a href="{{ route('cart.index') }}" id="cart-icon" class="text-white font-medium hover:text-yellow-300 transition duration-300 text-sm flex items-center gap-2 relative">
                     🛒 Cart
                     <span x-show="cartCount > 0" 
                           x-text="cartCount"
@@ -100,7 +100,7 @@
             <a href="{{ route('about') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300">
                 About
             </a>
-            <a href="{{ route('cart.index') }}" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300 relative">
+            <a href="{{ route('cart.index') }}" id="cart-icon-mobile" class="block px-4 py-3 text-white font-medium hover:bg-white hover:bg-opacity-10 rounded-lg transition duration-300 relative">
                 🛒 Cart
                 <span x-show="cartCount > 0" 
                       x-text="cartCount"

@@ -41,5 +41,48 @@
             <!-- Footer -->
             @include('layouts.footer')
         </div>
+        
+        <!-- Cart Animation Script -->
+        <script>
+            // Listen untuk success message dari session
+            @if(session('success') && str_contains(session('success'), 'ditambahkan ke keranjang'))
+                document.addEventListener('DOMContentLoaded', function() {
+                    animateCart();
+                });
+            @endif
+            
+            function animateCart() {
+                const cartIcon = document.getElementById('cart-icon');
+                const cartIconMobile = document.getElementById('cart-icon-mobile');
+                
+                // Animate desktop cart
+                if (cartIcon) {
+                    cartIcon.classList.add('cart-animate-bounce');
+                    const badge = cartIcon.querySelector('.cart-badge');
+                    if (badge) {
+                        badge.classList.add('badge-animate-pop');
+                    }
+                    
+                    setTimeout(() => {
+                        cartIcon.classList.remove('cart-animate-bounce');
+                        if (badge) badge.classList.remove('badge-animate-pop');
+                    }, 800);
+                }
+                
+                // Animate mobile cart
+                if (cartIconMobile) {
+                    cartIconMobile.classList.add('cart-animate-bounce');
+                    const badgeMobile = cartIconMobile.querySelector('.cart-badge');
+                    if (badgeMobile) {
+                        badgeMobile.classList.add('badge-animate-pop');
+                    }
+                    
+                    setTimeout(() => {
+                        cartIconMobile.classList.remove('cart-animate-bounce');
+                        if (badgeMobile) badgeMobile.classList.remove('badge-animate-pop');
+                    }, 800);
+                }
+            }
+        </script>
     </body>
 </html>

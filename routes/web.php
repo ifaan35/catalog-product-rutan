@@ -67,6 +67,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/qris/{order}', [CheckoutController::class, 'qris'])->name('checkout.qris');
+    Route::post('/checkout/upload-payment/{order}', [CheckoutController::class, 'uploadPaymentProof'])->name('checkout.upload-payment');
     Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/orders/history', [CheckoutController::class, 'history'])->name('checkout.history');
     
@@ -79,8 +81,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Midtrans Callback (harus di luar middleware auth karena dipanggil dari server Midtrans)
-Route::post('/midtrans/notification', [CheckoutController::class, 'handleMidtransNotification'])->name('midtrans.notification');
+// Midtrans Callback (tidak digunakan lagi, diganti dengan QRIS)
+// Route::post('/midtrans/notification', [CheckoutController::class, 'handleMidtransNotification'])->name('midtrans.notification');
 
 // Rute yang hanya dapat diakses oleh Petugas Rutan (Admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -91,6 +93,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/orders', [OrderManagementController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [OrderManagementController::class, 'show'])->name('orders.show');
     Route::post('/orders/{id}/update-status', [OrderManagementController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::post('/orders/{id}/update-payment-status', [OrderManagementController::class, 'updatePaymentStatus'])->name('orders.updatePaymentStatus');
     
     // Manajemen Produk (CRUD)
     Route::resource('products', AdminProductController::class)->except(['show']);

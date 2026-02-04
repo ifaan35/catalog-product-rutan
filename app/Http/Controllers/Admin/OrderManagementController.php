@@ -34,4 +34,23 @@ class OrderManagementController extends Controller
 
         return redirect()->back()->with('success', "Status Pesanan {$order->order_number} berhasil diperbarui menjadi " . ucfirst($order->status) . ".");
     }
+
+    public function updatePaymentStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $validated = $request->validate([
+            'payment_status' => 'required|in:unpaid,paid,failed,refunded'
+        ]);
+
+        $order->update(['payment_status' => $validated['payment_status']]);
+
+        $statusText = match($validated['payment_status']) {
+            'unpaid' => 'Belum Dibayar',
+            'paid' => 'Sudah Dibayar',
+            'failed' => 'Gagal',
+            'refunded' => 'Dikembalikan',
+        };
+
+        return redirect()->back()->with('success', "Status Pembayaran berhasil diperbarui menjadi {$statusText}.");
+    }
 }

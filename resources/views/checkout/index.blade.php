@@ -179,21 +179,8 @@
         </form>
     </div>
 
-    <!-- Midtrans Snap.js - Load with explicit onload callback -->
-    <script type="text/javascript"
-            src="{{ config('midtrans.is_production') ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js' }}"
-            data-client-key="{{ config('midtrans.client_key') }}"
-            onload="console.log('✓ Midtrans Snap.js loaded successfully'); window.snapLoaded = true;"
-            onerror="console.error('✗ Failed to load Midtrans Snap.js'); window.snapLoaded = false;"></script>
-
     <script>
         const API_BASE = '/api/indonesia';
-        
-        // Debug: Log Midtrans configuration
-        console.log('%c=== MIDTRANS CONFIGURATION ===', 'color: blue; font-weight: bold;');
-        console.log('Client Key:', '{{ config("midtrans.client_key") }}');
-        console.log('Is Production:', {{ config('midtrans.is_production') ? 'true' : 'false' }});
-        console.log('Snap URL:', '{{ config("midtrans.is_production") ? "https://app.midtrans.com/snap/snap.js" : "https://app.sandbox.midtrans.com/snap/snap.js" }}');
 
         // Load provinces on page load
         document.addEventListener('DOMContentLoaded', async () => {
@@ -536,13 +523,9 @@
 
             console.log('%c✓ ALL VALIDATION PASSED - PROCESSING PAYMENT', 'color: green; font-weight: bold; font-size: 14px;');
             
-            // Submit form via AJAX to get Snap Token
+            // Submit form via AJAX
             submitBtn.disabled = true;
             submitBtn.innerHTML = '⏳ Memproses...';
-            
-            // Get CSRF token
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
-                             document.querySelector('input[name="_token"]')?.value;
             
             fetch(form.action, {
                 method: 'POST',
@@ -560,47 +543,9 @@
             .then(data => {
                 console.log('%cResponse data received:', 'color: blue; font-weight: bold;', data);
                 
-                if (data.success && data.snap_token) {
-                    console.log('%c✓ Snap Token received:', 'color: green; font-weight: bold;', data.snap_token);
-                    console.log('Order ID:', data.order_id);
-                    
-                    // Check if snap is loaded
-                    console.log('Checking window.snap...', typeof window.snap);
-                    
-                    if (typeof window.snap === 'undefined') {
-                        console.error('%c✗ window.snap is undefined!', 'color: red; font-weight: bold;');
-                        throw new Error('Midtrans Snap belum loaded. Silakan refresh halaman.');
-                    }
-                    
-                    console.log('%c✓ Opening Midtrans payment popup...', 'color: green; font-weight: bold;');
-                    
-                    // Open Midtrans Snap popup
-                    try {
-                        window.snap.pay(data.snap_token, {
-                            onSuccess: function(result) {
-                                console.log('%cPayment Success!', 'color: green; font-weight: bold;', result);
-                                window.location.href = '/checkout/success/' + data.order_id;
-                            },
-                            onPending: function(result) {
-                                console.log('%cPayment Pending', 'color: orange; font-weight: bold;', result);
-                                window.location.href = '/checkout/success/' + data.order_id;
-                            },
-                            onError: function(result) {
-                                console.error('%cPayment Error!', 'color: red; font-weight: bold;', result);
-                                alert('Pembayaran gagal. Silakan coba lagi.');
-                                submitBtn.disabled = false;
-                                submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';
-                            },
-                            onClose: function() {
-                                console.log('%cPayment popup closed by user', 'color: gray; font-weight: bold;');
-                                submitBtn.disabled = false;
-                                submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';
-                            }
-                        });
-                    } catch (snapError) {
-                        console.error('%c✗ Error calling window.snap.pay():', 'color: red; font-weight: bold;', snapError);
-                        throw snapError;
-                    }
+                if (data.success && data.redirect_url) {
+                    console.log('%c✓ Order created successfully, redirecting to QRIS page...', 'color: green; font-weight: bold;');
+                    window.location.href = data.redirect_url;
                 } else {
                     console.error('%c✗ Invalid response from server', 'color: red; font-weight: bold;', data);
                     throw new Error(data.message || 'Gagal membuat transaksi');
@@ -609,7 +554,6 @@
             .catch(error => {
                 console.error('%c✗ CHECKOUT ERROR:', 'color: red; font-weight: bold; font-size: 14px;', error);
                 console.error('Error details:', error.message);
-                console.error('Error stack:', error.stack);
                 alert('Terjadi kesalahan: ' + error.message);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '🔒 KONFIRMASI PEMBAYARAN';

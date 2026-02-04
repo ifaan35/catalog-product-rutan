@@ -102,11 +102,31 @@
             <!-- Next Steps -->
             <div class="bg-blue-50 rounded-lg p-4 mb-8" style="background-color: #F3F4F6;">
                 <h4 class="font-bold mb-3" style="color: #07213C;">📋 Langkah Selanjutnya</h4>
+                
+                @if($order->payment_proof)
+                    <div class="mb-4 p-3 rounded" style="background-color: #D1FAE5;">
+                        <p class="text-sm font-semibold" style="color: #065F46;">✓ Bukti pembayaran telah diunggah</p>
+                        <p class="text-xs mt-1" style="color: #047857;">Menunggu verifikasi admin</p>
+                    </div>
+                    
+                    <!-- Preview Bukti Pembayaran -->
+                    <div class="mb-4">
+                        <p class="text-sm font-semibold mb-2" style="color: #07213C;">Bukti Pembayaran:</p>
+                        <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Bukti Pembayaran" class="max-w-xs rounded-lg shadow-md">
+                    </div>
+                @endif
+
                 <ol class="space-y-2" style="color: #6B7280;">
-                    <li class="text-sm"><span class="font-semibold">1.</span> Pesanan Anda sedang diproses</li>
-                    <li class="text-sm"><span class="font-semibold">2.</span> Admin akan menghubungi Anda untuk konfirmasi pembayaran</li>
-                    <li class="text-sm"><span class="font-semibold">3.</span> Setelah pembayaran diterima, paket akan disiapkan</li>
-                    <li class="text-sm"><span class="font-semibold">4.</span> Anda akan menerima notifikasi pengiriman</li>
+                    @if($order->payment_proof)
+                        <li class="text-sm"><span class="font-semibold">1.</span> Bukti pembayaran Anda sedang diverifikasi oleh admin</li>
+                        <li class="text-sm"><span class="font-semibold">2.</span> Setelah pembayaran diverifikasi, paket akan disiapkan</li>
+                        <li class="text-sm"><span class="font-semibold">3.</span> Anda akan menerima notifikasi pengiriman</li>
+                    @else
+                        <li class="text-sm"><span class="font-semibold">1.</span> Lakukan pembayaran melalui QRIS yang telah ditampilkan</li>
+                        <li class="text-sm"><span class="font-semibold">2.</span> Upload bukti pembayaran pada halaman pembayaran</li>
+                        <li class="text-sm"><span class="font-semibold">3.</span> Tunggu verifikasi dari admin</li>
+                        <li class="text-sm"><span class="font-semibold">4.</span> Anda akan menerima notifikasi pengiriman</li>
+                    @endif
                 </ol>
             </div>
 

@@ -34,31 +34,54 @@
                 Update Status Pesanan
             </h3>
 
-            <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="flex flex-wrap items-end gap-4">
-                @csrf
-                <div class="flex-1 min-w-48">
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status Saat Ini:</label>
-                    <select name="status" id="status" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:border-transparent" style="focus:ring-color: #F3C32A;">
-                        @foreach($statuses as $status)
-                            <option value="{{ $status }}" {{ $order->status == $status ? 'selected' : '' }}>
-                                @switch($status)
-                                    @case('pending') ⏳ Menunggu Konfirmasi @break
-                                    @case('processing') 🔄 Sedang Diproses @break
-                                    @case('shipped') 🚚 Sedang Dikirim @break
-                                    @case('delivered') ✅ Sudah Diterima @break
-                                    @case('cancelled') ❌ Dibatalkan @break
-                                @endswitch
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="inline-flex items-center px-6 py-3 font-bold rounded-md transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1" style="background-color: #F3C32A; color: #072138;">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Perbarui Status
-                </button>
-            </form>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Update Status Pesanan -->
+                <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="flex flex-col gap-4">
+                    @csrf
+                    <div class="flex-1">
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status Pesanan:</label>
+                        <select name="status" id="status" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:border-transparent" style="focus:ring-color: #F3C32A;">
+                            @foreach($statuses as $status)
+                                <option value="{{ $status }}" {{ $order->status == $status ? 'selected' : '' }}>
+                                    @switch($status)
+                                        @case('pending') ⏳ Menunggu Konfirmasi @break
+                                        @case('processing') 🔄 Sedang Diproses @break
+                                        @case('shipped') 🚚 Sedang Dikirim @break
+                                        @case('delivered') ✅ Sudah Diterima @break
+                                        @case('cancelled') ❌ Dibatalkan @break
+                                    @endswitch
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="inline-flex items-center justify-center px-6 py-3 font-bold rounded-md transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1" style="background-color: #F3C32A; color: #072138;">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Perbarui Status
+                    </button>
+                </form>
+
+                <!-- Update Status Pembayaran -->
+                <form action="{{ route('admin.orders.updatePaymentStatus', $order->id) }}" method="POST" class="flex flex-col gap-4">
+                    @csrf
+                    <div class="flex-1">
+                        <label for="payment_status" class="block text-sm font-medium text-gray-700 mb-2">Status Pembayaran:</label>
+                        <select name="payment_status" id="payment_status" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-2 focus:border-transparent" style="focus:ring-color: #F3C32A;">
+                            <option value="unpaid" {{ $order->payment_status == 'unpaid' ? 'selected' : '' }}>❌ Belum Dibayar</option>
+                            <option value="paid" {{ $order->payment_status == 'paid' ? 'selected' : '' }}>✅ Sudah Dibayar</option>
+                            <option value="failed" {{ $order->payment_status == 'failed' ? 'selected' : '' }}>⚠️ Gagal</option>
+                            <option value="refunded" {{ $order->payment_status == 'refunded' ? 'selected' : '' }}>↩️ Dikembalikan</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="inline-flex items-center justify-center px-6 py-3 font-bold rounded-md transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1" style="background-color: #10B981; color: #FFFFFF;">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Update Pembayaran
+                    </button>
+                </form>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -180,6 +203,75 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Bukti Pembayaran -->
+                @if($order->payment_proof)
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-200" style="color: #072138;">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Bukti Pembayaran
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Status Pembayaran:</span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold {{ $order->payment_status == 'paid' ? 'bg-green-100 text-green-800' : ($order->payment_status == 'unpaid' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                    @switch($order->payment_status)
+                                        @case('paid') ✅ Sudah Dibayar @break
+                                        @case('unpaid') ⏳ Menunggu Verifikasi @break
+                                        @case('failed') ❌ Gagal @break
+                                        @case('refunded') ↩️ Dikembalikan @break
+                                    @endswitch
+                                </span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Foto Bukti Transfer:</label>
+                            <div class="border-2 border-gray-200 rounded-lg p-2 bg-white">
+                                <img src="{{ asset('storage/' . $order->payment_proof) }}" 
+                                     alt="Bukti Pembayaran" 
+                                     class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:opacity-90 transition"
+                                     onclick="window.open(this.src, '_blank')">
+                            </div>
+                            <p class="mt-2 text-xs text-gray-500 italic">
+                                💡 Klik gambar untuk melihat ukuran penuh
+                            </p>
+                        </div>
+
+                        <div class="pt-3 border-t border-gray-100">
+                            <p class="text-xs text-gray-500">
+                                <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Pastikan bukti pembayaran valid sebelum mengubah status ke "Sudah Dibayar"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-200" style="color: #072138;">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Bukti Pembayaran
+                    </h3>
+                    
+                    <div class="text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-500">Belum ada bukti pembayaran</p>
+                        <p class="text-xs text-gray-400 mt-1">Customer belum mengupload bukti transfer</p>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

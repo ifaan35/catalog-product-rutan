@@ -9,8 +9,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Midtrans\Config;
-use Midtrans\Snap;
+use Illuminate\Support\Facades\Storage;
 
 class CheckoutController extends Controller
 {
@@ -132,69 +131,20 @@ class CheckoutController extends Controller
                 }
             }
 
-            // C. Integrasi Midtrans Payment Gateway
-            // Konfigurasi Midtrans
-            Config::$serverKey = config('midtrans.server_key');
-            Config::$isProduction = config('midtrans.is_production');
-            Config::$isSanitized = config('midtrans.is_sanitized');
-            Config::$is3ds = config('midtrans.is_3ds');
+            // C. Hapus Keranjang dari Session
+            session()->forget('cart');
+            session()->forget('cart_count');
 
-            // Siapkan parameter transaksi untuk Midtrans
-            $params = [
-                'transaction_details' => [
-                    'order_id' => $order->order_number,
-                    'gross_amount' => (int) $totalAmount,
-                ],
-                'customer_details' => [
-                    'first_name' => $request->recipient_name,
-                    'phone' => $request->phone_number,
-                    'address' => $address,
-                ],
-                'item_details' => [],
-            ];
+            DB::commit(); // Simpan perubahan permanen
 
-            // Tambahkan item detail
-            foreach($cart as $item) {
-                $params['item_details'][] = [
-                    'id' => $item['id'],
-                    'price' => (int) $item['price'],
-                    'quantity' => (int) $item['quantity'],
-                    'name' => $item['name'],
-                ];
-            }
+            Log::info('Order created successfully with QRIS payment:', ['order_id' => $order->id]);
 
-            try {
-                // Dapatkan Snap Token dari Midtrans
-                $snapToken = Snap::getSnapToken($params);
-                $order->snap_token = $snapToken;
-                $order->save();
-
-                Log::info('Midtrans Snap Token generated:', ['order_id' => $order->id, 'snap_token' => $snapToken]);
-
-                // D. Hapus Keranjang dari Session
-                session()->forget('cart');
-                session()->forget('cart_count');
-
-                DB::commit(); // Simpan perubahan permanen
-
-                // Return JSON response untuk AJAX
-                return response()->json([
-                    'success' => true,
-                    'snap_token' => $snapToken,
-                    'order_id' => $order->id,
-                ]);
-
-            } catch (\Exception $e) {
-                DB::rollBack();
-                Log::error('Midtrans Snap Token generation failed:', [
-                    'message' => $e->getMessage(),
-                    'order_id' => $order->id,
-                ]);
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Gagal membuat transaksi pembayaran: ' . $e->getMessage()
-                ], 500);
-            }
+            // Return JSON response untuk AJAX dengan redirect ke halaman QRIS
+            return response()->json([
+                'success' => true,
+                'order_id' => $order->id,
+                'redirect_url' => route('checkout.qris', $order->id)
+            ]);
 
         } catch (\Exception $e) {
             DB::rollBack(); // Batalkan semua perubahan jika ada error
@@ -242,10 +192,89 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Handle Midtrans notification callback
+     * Show QRIS payment page
+     */
+    public function qris(Order $order)
+    {
+        // Pastikan user hanya bisa melihat order miliknya
+        if ($order->user_id !== Auth::id()) {
+            return redirect()->route('home')->with('error', 'Anda tidak berhak mengakses pesanan ini.');
+        }
+
+        $order->load('orderItems');
+        return view('checkout.qris', compact('order'));
+    }
+
+    /**
+     * Upload payment proof
+     */
+    public function uploadPaymentProof(Request $request, Order $order)
+    {
+        // Pastikan user hanya bisa upload untuk order miliknya
+        if ($order->user_id !== Auth::id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda tidak berhak mengakses pesanan ini.'
+            ], 403);
+        }
+
+        $request->validate([
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        try {
+            // Hapus bukti pembayaran lama jika ada
+            if ($order->payment_proof) {
+                Storage::delete('public/' . $order->payment_proof);
+            }
+
+            // Upload bukti pembayaran baru
+            $path = $request->file('payment_proof')->store('payment_proofs', 'public');
+            
+            // Update order
+            $order->payment_proof = $path;
+            // Status tetap 'unpaid' sampai admin verifikasi dan ubah ke 'paid'
+            $order->status = 'pending'; // Menunggu verifikasi admin
+            $order->save();
+
+            Log::info('Payment proof uploaded:', [
+                'order_id' => $order->id,
+                'payment_proof' => $path
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Bukti pembayaran berhasil diunggah. Pesanan Anda sedang diproses.',
+                'redirect_url' => route('checkout.success', $order->id)
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Payment proof upload failed:', [
+                'order_id' => $order->id,
+                'message' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengunggah bukti pembayaran: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Handle Midtrans notification callback (DEPRECATED - tidak digunakan lagi)
+     * Method ini dipertahankan untuk backward compatibility
      */
     public function handleMidtransNotification(Request $request)
     {
+        // Method ini tidak digunakan lagi karena sudah beralih ke QRIS
+        // Dipertahankan untuk backward compatibility
+        return response()->json([
+            'status' => 'error', 
+            'message' => 'Midtrans payment method is no longer supported'
+        ], 410);
+        
+        /* Original Midtrans code - commented out
         // Konfigurasi Midtrans
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
@@ -313,5 +342,6 @@ class CheckoutController extends Controller
             ]);
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
+        */
     }
 }

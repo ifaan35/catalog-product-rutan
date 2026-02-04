@@ -42,13 +42,6 @@ Route::get('/category/{category}', [ProductController::class, 'category'])->name
 // Rute untuk pencarian produk
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
-// Rute untuk Socialite OAuth - Redirect
-Route::get('/auth/{provider}', [SocialController::class, 'redirectToProvider'])->name('socialite.redirect')->where('provider', 'google|facebook|github');
-
-// Rute untuk Socialite OAuth - Callback (specific routes first)
-Route::get('/auth/google/callback', [SocialController::class, 'handleProviderCallback'])->name('google.callback');
-Route::get('/auth/{provider}/callback', [SocialController::class, 'handleProviderCallback'])->name('socialite.callback')->where('provider', 'facebook|github');
-
 // Rute untuk Keranjang Belanja
 Route::prefix('cart')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('cart.index');
@@ -80,9 +73,6 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-// Midtrans Callback (tidak digunakan lagi, diganti dengan QRIS)
-// Route::post('/midtrans/notification', [CheckoutController::class, 'handleMidtransNotification'])->name('midtrans.notification');
 
 // Rute yang hanya dapat diakses oleh Petugas Rutan (Admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

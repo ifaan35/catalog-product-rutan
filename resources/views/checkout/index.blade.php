@@ -185,20 +185,6 @@
         // Load provinces on page load
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('DOMContentLoaded - Loading provinces...');
-            
-            // Wait for Snap.js to load
-            let attempts = 0;
-            while (typeof window.snap === 'undefined' && attempts < 50) {
-                await new Promise(resolve => setTimeout(resolve, 100));
-                attempts++;
-            }
-            
-            if (typeof window.snap !== 'undefined') {
-                console.log('%c✓ Midtrans Snap is ready!', 'color: green; font-weight: bold;');
-            } else {
-                console.error('%c✗ Midtrans Snap failed to load after 5 seconds!', 'color: red; font-weight: bold;');
-            }
-            
             await loadProvinces();
         });
 
